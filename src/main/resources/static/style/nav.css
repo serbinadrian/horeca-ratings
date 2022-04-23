@@ -1,0 +1,85 @@
+nav {
+  position: absolute;
+  top: 0;
+  z-index: 50;
+  left: 0;
+  width: 100%;
+  height: var(--navbar-height);
+}
+
+nav .content {
+  color: var(--main-font-color);
+  height: 100%;
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav a{
+  text-decoration: none;
+  color: var(--main-font-color);
+}
+
+.site-logo {
+  width: 160px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-img {
+  width: 40px;
+  height: 40px;
+}
+
+.site-name {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: 0.05em;
+}
+
+.logout{
+  height: 28px;
+  width: 35px;
+  margin-left: 20px;
+}
+
+.logout path{
+  fill: var(--main-font-color);
+}
+
+.logout:hover path{
+  fill: var(--secondary-accent-color);
+}
+
+.user-block{
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.username {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: 0.05em;
+  max-width: 200px;
+  text-align:right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 15px;
+}
+
+.user-picture{
+  width: 40px;
+  height: 40px;
+}

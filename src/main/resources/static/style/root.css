@@ -1,0 +1,18 @@
+:root{
+  --navbar-height: 80px;
+  --content-width: 90%;
+
+
+  --main-font-color: #ffffff;
+  --secondary-font-color: #414141;
+  --body-background-color: #1F232A;
+  --auth-bakground-color: #393A40;
+  --accent-color: #3E80E2;
+  --secondary-accent-color: #8EBBFF;
+  --secondary-color: #52535A;
+  --comment-background-color: #898A94;
+  --dark-font-color: #353535;
+  --gold: gold;
+
+  --font:'Raleway', sans-serif;
+}
