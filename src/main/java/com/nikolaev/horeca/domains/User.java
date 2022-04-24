@@ -14,8 +14,17 @@ public class User {
     private long id;
     private String name;
     private String email;
+    private String password;
     private String fullName;
     private Role role;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Role getRole() {
         return role;
