@@ -11,8 +11,12 @@ public class ErrorMessage {
         this.type = type;
     }
 
+    public void print(){
+        System.out.println("Error occurred: " + this.message);
+    }
+
     public String getMessage() {
-        return message;
+        return this.message;
     }
 
     public void setMessage(String message) {
@@ -20,7 +24,7 @@ public class ErrorMessage {
     }
 
     public ErrorType getType() {
-        return type;
+        return this.type;
     }
 
     public void setType(ErrorType type) {

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8">
   <title>HOME</title>
-  <link rel="stylesheet" href="../style/root.css">
-  <link rel="stylesheet" href="../style/reset.css">
-  <link rel="stylesheet" href="../style/index/sign-in.css">
-  <link rel="stylesheet" href="../style/navbar/nav.css">
-  <link rel="stylesheet" href="../style/tooltip/tooltip.css">
+  <link rel="stylesheet" href="../static/style/root.css">
+  <link rel="stylesheet" href="../static/style/reset.css">
+  <link rel="stylesheet" href="../static/style/sign-in.css">
+  <link rel="stylesheet" href="../static/style/nav.css">
+  <link rel="stylesheet" href="../static/style/tooltip.css">
 </head>
 
 <body>
@@ -28,7 +28,7 @@
           </svg>
         </div>
         <div class="site-name">
-          <a href="../index.html">HORECA</a>
+          <a href="/">HORECA</a>
         </div>
       </div>
     </div>
@@ -37,10 +37,10 @@
     <div class="auth-block">
       <div class="reg-block">
         <div class="auth-navigation">
-          <a class="auth-navigation-item auth-sign-in" href="sign-in.html">
+          <a class="auth-navigation-item auth-sign-in" href="/signin">
             Вход
           </a>
-          <a class="auth-navigation-item auth-sign-up active" href="sign-up.html">
+          <a class="auth-navigation-item auth-sign-up active" href="/signup">
             Регистрация
           </a>
         </div>
@@ -51,12 +51,12 @@
           Зарегистрируйтесь чтобы продолжить
         </div>
         <div class="auth-form-block">
-          <form action="">
+          <form action="/register" id="reg-form">
             <div class="auth-form-item">
               <label for="nickname-input">
                 <div class="label-name">Nickname</div>
                 <span class="input-holder">
-                  <input type="email" placeholder="Ваш Nickname" id="nickname-input">
+                  <input type="email" placeholder="Ваш Nickname" id="nickname-input" name="username">
                 </span>
               </label>
             </div>
@@ -64,7 +64,7 @@
               <label for="name-input">
                 <div class="label-name">Имя и фамилия</div>
                 <span class="input-holder">
-                  <input type="email" placeholder="Ваши Имя и Фамилия" id="name-input">
+                  <input type="email" placeholder="Ваши Имя и Фамилия" id="name-input"  name="name">
                 </span>
               </label>
             </div>
@@ -72,7 +72,7 @@
               <label for="email-input">
                 <div class="label-name">E-mail</div>
                 <span class="input-holder">
-                  <input type="email" placeholder="Ваш e-mail" id="email-input">
+                  <input type="email" placeholder="Ваш e-mail" id="email-input"  name="email">
                 </span>
               </label>
             </div>
@@ -81,7 +81,7 @@
               <label for="password-input">
                 <div class="label-name">Пароль</div>
                 <span class="input-holder">
-                  <input type="password" placeholder="Ваш пароль" id="password-input">
+                  <input type="password" placeholder="Ваш пароль" id="password-input"  name="password">
                 </span>
               </label>
             </div>
@@ -89,12 +89,12 @@
               <label for="rpassword-input">
                 <div class="label-name">Повторить пароль</div>
                 <span class="input-holder">
-                  <input type="password" placeholder="Ваш пароль" id="rpassword-input">
+                  <input type="password" placeholder="Ваш пароль" id="rpassword-input"  name="repeatPassword">
                 </span>
               </label>
             </div>
             <div class="reg-submit">
-              <button type="submit">Зарегистрироваться!</button>
+              <button type="button" onclick="document.getElementById('reg-form').submit()">Зарегистрироваться!</button>
             </div>
           </form>
         </div>

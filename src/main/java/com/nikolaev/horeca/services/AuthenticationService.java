@@ -20,7 +20,6 @@ public class AuthenticationService {
         User user = new User();
         User targetUser;
         boolean emailOnly = false;
-        //// TODO: add lang resource
         List<ErrorMessage> errorMessages = new ArrayList<>();
         ErrorMessage message = new ErrorMessage("Неверное имя пользователя или пароль", ErrorType.AUTH);
 
@@ -30,6 +29,8 @@ public class AuthenticationService {
         } else {
             user.setName(username);
         }
+
+        user.setPassword(password);
 
         if (!isUserExists(user)) {
             errorMessages.add(message);
@@ -56,19 +57,16 @@ public class AuthenticationService {
         List<ErrorMessage> errorMessages = new ArrayList<>();
 
         if(!isEmail(email)){
-            ////// TODO: add lang resource
             ErrorMessage message = new ErrorMessage("Введен не Email", ErrorType.INVALID_EMAIL);
             errorMessages.add(message);
         }
 
         if(!isLatinAndNumbers(username) || isUserExists(user)){
-            ////// TODO: add lang resource
             ErrorMessage message = new ErrorMessage("Пользователь уже существует или введено некорректное имя", ErrorType.INVALID_EMAIL);
             errorMessages.add(message);
         }
 
         if(!isEqualPasswords(password, repeatPassword)){
-            ////// TODO: add lang resource
             ErrorMessage message = new ErrorMessage("Пароли не совпадают", ErrorType.INVALID_EMAIL);
             errorMessages.add(message);
         }

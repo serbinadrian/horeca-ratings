@@ -24,7 +24,7 @@ html{
 body{
   overflow: hidden;
   background-color: var(--body-background-color);
-  background-image: url(../resources/back.png);
+  background-image: url("../images/back.png");
   background-size: contain;
 }
 

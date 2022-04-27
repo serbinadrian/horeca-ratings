@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8">
   <title>HOME</title>
-  <link rel="stylesheet" href="style/root.css">
-  <link rel="stylesheet" href="style/reset.css">
-  <link rel="stylesheet" href="style/index/index.css">
-  <link rel="stylesheet" href="style/navbar/nav.css">
-  <link rel="stylesheet" href="style/tooltip/tooltip.css">
+  <link rel="stylesheet" href="../static/style/root.css">
+  <link rel="stylesheet" href="../static/style/reset.css">
+  <link rel="stylesheet" href="../static/style/index.css">
+  <link rel="stylesheet" href="../static/style/nav.css">
+  <link rel="stylesheet" href="../static/style/tooltip.css">
 </head>
 
 <body>
@@ -31,11 +31,11 @@
           <a href="index.html">HORECA</a>
         </div>
       </div>
-      <div class="user-block" data-tooltip="Личный кабинет" data-flow="bottom">
-        <a href="pages/lk.html">
+      <div th:if="${isSignedIn}" class="user-block" data-tooltip="Личный кабинет" data-flow="bottom">
+        <a href="">
           <div class="user-block">
             <div class="username" title="username">
-              username
+              <span th:text="${user.name}">username</span>
             </div>
             <div class="user-picture">
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -47,7 +47,7 @@
           </div>
         </a>
         <div class="logout" data-tooltip="Выйти" data-flow="right">
-          <a href="pages/sign-in.html">
+          <a href="/signout">
             <svg width="35" height="28" viewBox="0 0 35 28" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M14.5382 27.9999C10.7058 28.0162 7.02289 26.5517 4.29705 23.9281C1.57178 21.3045 0.0265012 17.7359 0 14.0045C0.0368317 11.0742 1.00533 8.22734 2.77241 5.85484C4.53949 3.48235 7.01817 1.70158 9.8673 0.756785C12.7165 -0.187734 15.7967 -0.249696 18.6834 0.579669C21.5703 1.40903 24.1223 3.08888 25.9887 5.38815C26.2658 5.73151 26.3333 6.19275 26.1662 6.59783C25.9991 7.00313 25.6227 7.29081 25.1787 7.3525C24.7348 7.41417 24.2906 7.24058 24.0138 6.89722C22.493 4.99789 20.4012 3.60809 18.0299 2.92192C15.6587 2.23601 13.1268 2.28789 10.7874 3.07078C8.44805 3.85341 6.4181 5.32763 4.98111 7.28788C3.54412 9.24813 2.77144 11.5962 2.77144 14.0044C2.77144 16.4126 3.54404 18.7607 4.98111 20.7209C6.4181 22.6811 8.44805 24.1554 10.7874 24.938C13.1268 25.7209 15.6587 25.7728 18.0299 25.0868C20.4011 24.4007 22.493 23.0109 24.0138 21.1115C24.2202 20.8573 24.5224 20.6938 24.8534 20.6571C25.1843 20.6207 25.5163 20.7141 25.7764 20.9168C26.0356 21.1159 26.2039 21.4068 26.2435 21.726C26.2834 22.0455 26.1919 22.3669 25.9888 22.6206C24.6254 24.3051 22.8854 25.6649 20.9015 26.597C18.9173 27.5292 16.7411 28.0087 14.5382 27.9998L14.5382 27.9999Z" />
@@ -57,6 +57,11 @@
                 d="M28.7518 20.089C28.4194 20.0909 28.1002 19.9638 27.8642 19.7362C27.6275 19.5077 27.4944 19.1967 27.4944 18.872C27.4944 18.5474 27.6275 18.2364 27.8642 18.0079L30.7393 15.2211H11.2513C10.8045 15.2211 10.3919 14.9891 10.1686 14.6126C9.94541 14.2361 9.94541 13.7721 10.1686 13.3956C10.3919 13.0191 10.8045 12.7871 11.2513 12.7871H33.7523C33.9989 12.7882 34.24 12.8607 34.4445 12.9949C34.6494 13.1291 34.8087 13.3193 34.9024 13.5418C34.9981 13.7631 35.0241 14.0076 34.9775 14.2437C34.9309 14.4798 34.8131 14.6971 34.6399 14.8682L29.6396 19.7362C29.4036 19.9638 29.0844 20.0909 28.752 20.089L28.7518 20.089Z" />
             </svg>
           </a>
+        </div>
+      </div>
+      <div th:unless="${isSignedIn}" class="user-block" data-tooltip="Войти" data-flow="bottom">
+        <div class="username">
+          <a href="/signin">Войти</a>
         </div>
       </div>
     </div>

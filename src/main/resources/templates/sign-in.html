@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org/">
 
 <head>
   <meta charset="utf-8">
   <title>HOME</title>
-  <link rel="stylesheet" href="../style/root.css">
-  <link rel="stylesheet" href="../style/reset.css">
-  <link rel="stylesheet" href="../style/index/sign-in.css">
-  <link rel="stylesheet" href="../style/navbar/nav.css">
-  <link rel="stylesheet" href="../style/tooltip/tooltip.css">
+  <link rel="stylesheet" href="../static/style/root.css">
+  <link rel="stylesheet" href="../static/style/reset.css">
+  <link rel="stylesheet" href="../static/style/sign-in.css">
+  <link rel="stylesheet" href="../static/style/nav.css">
+  <link rel="stylesheet" href="../static/style/tooltip.css">
 </head>
 
 <body>
@@ -28,7 +28,7 @@
           </svg>
         </div>
         <div class="site-name">
-          <a href="../index.html">HORECA</a>
+          <a href="/">HORECA</a>
         </div>
       </div>
     </div>
@@ -37,10 +37,10 @@
     <div class="auth-block">
       <div class="login-block">
         <div class="auth-navigation">
-          <a class="auth-navigation-item auth-sign-in active" href="sign-in.html">
+          <a class="auth-navigation-item auth-sign-in active" href="/signin">
             Вход
           </a>
-          <a class="auth-navigation-item auth-sign-up" href="sign-up.html">
+          <a class="auth-navigation-item auth-sign-up" href="/signup">
             Регистрация
           </a>
         </div>
@@ -51,25 +51,47 @@
           Войдите чтобы продолжить
         </div>
         <div class="auth-form-block">
-          <form action="">
-            <div class="auth-form-item">
+          <form method="post" action="/login" id="login-form">
+            <div th:if="${invalid_authentication}" class="auth-form-item errored" th:attr="data-tooltip=${invalid_authentication.message}" data-flow="right">
               <label for="email-input">
                 <div class="label-name">Логин</div>
                 <span class="input-holder">
-                  <input type="email" placeholder="Ваш логин" id="email-input">
+                  <input type="email" placeholder="Ваш логин" id="email-input" name="username">
+                </span>
+              </label>
+              <div class="ERROR">
+                !
+              </div>
+            </div>
+            <div th:unless="${invalid_authentication}" class="auth-form-item">
+              <label for="email-input">
+                <div class="label-name">Логин</div>
+                <span class="input-holder">
+                  <input type="email" placeholder="Ваш логин" id="email-input" name="username">
                 </span>
               </label>
             </div>
-            <div class="auth-form-item">
+            <div  th:if="${invalid_authentication}" class="auth-form-item errored" th:attr="data-tooltip=${invalid_authentication.message}" data-flow="right">
               <label for="password-input">
                 <div class="label-name">Пароль</div>
                 <span class="input-holder">
-                  <input type="password" placeholder="Ваш пароль" id="password-input">
+                  <input type="password" placeholder="Ваш пароль" id="password-input" name="password">
+                </span>
+              </label>
+              <div class="ERROR">
+                !
+              </div>
+            </div>
+            <div th:unless="${invalid_authentication}" class="auth-form-item">
+              <label for="password-input">
+                <div class="label-name">Пароль</div>
+                <span class="input-holder">
+                  <input type="password" placeholder="Ваш пароль" id="password-input" name="password">
                 </span>
               </label>
             </div>
             <div class="auth-submit">
-              <button type="submit">Войти!</button>
+              <button type="button" onclick="document.getElementById('login-form').submit()">Войти!</button>
             </div>
           </form>
         </div>
