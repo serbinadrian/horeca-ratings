@@ -56,7 +56,7 @@
               <label for="email-input">
                 <div class="label-name">Логин</div>
                 <span class="input-holder">
-                  <input type="email" placeholder="Ваш логин" id="email-input" name="username">
+                  <input type="email" placeholder="Ваш логин" id="email-input" name="username" th:value="${username}">
                 </span>
               </label>
               <div class="ERROR">
@@ -67,11 +67,11 @@
               <label for="email-input">
                 <div class="label-name">Логин</div>
                 <span class="input-holder">
-                  <input type="email" placeholder="Ваш логин" id="email-input" name="username">
+                  <input type="email" placeholder="Ваш логин" id="email-input" name="username" th:value="${username}">
                 </span>
               </label>
             </div>
-            <div  th:if="${invalid_authentication}" class="auth-form-item errored" th:attr="data-tooltip=${invalid_authentication.message}" data-flow="right">
+            <div th:if="${invalid_authentication}" class="auth-form-item errored" th:attr="data-tooltip=${invalid_authentication.message}" data-flow="right">
               <label for="password-input">
                 <div class="label-name">Пароль</div>
                 <span class="input-holder">
@@ -98,6 +98,7 @@
       </div>
       <div class="blank-bakground"></div>
     </div>
+    <script th:if="${invalid_authentication}" src="/../static/script/sign-in/sign-in.js"></script>
   </div>
 
 </body>

@@ -23,9 +23,10 @@ public class UserController {
     UserRepository userRepository;
     User user = new User();
     boolean isSignedIn = false;
+
     @GetMapping("/")
     public String getHome(Model model) {
-        if(isSignedIn){
+        if (isSignedIn) {
             model.addAttribute("user", user);
         }
 
@@ -33,6 +34,7 @@ public class UserController {
 
         return "index";
     }
+
     @GetMapping("/signin")
     public String getLoginPage() {
         return "sign-in";
@@ -44,34 +46,34 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String signIn(@RequestParam(value = "username")String username,
-                         @RequestParam(value = "password")String password,
+    public String signIn(@RequestParam(value = "username") String username,
+                         @RequestParam(value = "password") String password,
                          Model model) {
 
         System.out.println("Got username: " + username);
         System.out.println("Got password: " + password);
-        List<ErrorMessage> errors =  authenticationService.validateLogin(username, password);
-        if(errors.isEmpty()){
+        List<ErrorMessage> errors = authenticationService.validateLogin(username, password);
+        if (errors.isEmpty()) {
             user = userRepository.findByName(username);
             isSignedIn = true;
             return "redirect:/";
-        }
-        else{
+        } else {
             isSignedIn = false;
-            for (ErrorMessage error: errors) {
+            for (ErrorMessage error : errors) {
                 model.addAttribute(error.getType().getTemplateValue(), error);
                 error.print();
             }
+            model.addAttribute("username", username);
         }
         return "sign-in";
     }
 
     @GetMapping("/register")
-    public String registerNewUser(@RequestParam(value = "username")String username,
-                                  @RequestParam(value = "name")String name,
-                                  @RequestParam(value = "email")String email,
-                                  @RequestParam(value = "password")String password,
-                                  @RequestParam(value = "password")String repeatPassword,
+    public String registerNewUser(@RequestParam(value = "username") String username,
+                                  @RequestParam(value = "name") String name,
+                                  @RequestParam(value = "email") String email,
+                                  @RequestParam(value = "password") String password,
+                                  @RequestParam(value = "repeatPassword") String repeatPassword,
                                   Model model) {
 
         System.out.println("Got username: " + username);
@@ -79,29 +81,34 @@ public class UserController {
         System.out.println("Got email: " + email);
         System.out.println("Got password: " + password);
         System.out.println("Got repeatPassword: " + repeatPassword);
-        List<ErrorMessage> errors =  authenticationService.validateRegistration(username, password, repeatPassword, email);
-        if(errors.isEmpty()){
+        List<ErrorMessage> errors = authenticationService.validateRegistration(username, name, password, repeatPassword, email);
+        if (errors.isEmpty()) {
             user.setName(username);
-            user.setFullName(name);
+            user.setFullName(authenticationService.normalize(name));
             user.setEmail(email);
             user.setPassword(password);
             user.setRole(Role.USER);
             userRepository.save(user);
             isSignedIn = true;
             return "redirect:/";
-        }
-        else{
+        } else {
             isSignedIn = false;
-            for (ErrorMessage error: errors) {
+            for (ErrorMessage error : errors) {
                 model.addAttribute(error.getType().getTemplateValue(), error);
                 error.print();
             }
+            model.addAttribute("invalid_authentication",  "есть ошибки в регистрации");
+            model.addAttribute("username", username);
+            model.addAttribute("name", name);
+            model.addAttribute("email", email);
+            model.addAttribute("password", password);
+            model.addAttribute("repeatPassword", repeatPassword);
         }
         return "sign-up";
     }
 
     @GetMapping("/signout")
-    public String signOut(){
+    public String signOut() {
         isSignedIn = false;
         user = new User();
         return "redirect:/signin";

@@ -1,8 +1,11 @@
 package com.nikolaev.horeca.misc;
 
 public enum ErrorType {
-    AUTH("invalid_authentication"),
-    INVALID_EMAIL("invalid_email");
+    INVALID_AUTH("invalid_authentication"),
+    INVALID_EMAIL("invalid_email"),
+    INVALID_NAME("invalid_name"),
+    INVALID_USER("invalid_username"),
+    INVALID_PASSWORD("invalid_password");
 
     private final String templateValue;
     ErrorType(String templateValue)

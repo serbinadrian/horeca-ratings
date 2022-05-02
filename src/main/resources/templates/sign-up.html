@@ -52,44 +52,99 @@
         </div>
         <div class="auth-form-block">
           <form action="/register" id="reg-form">
-            <div class="auth-form-item">
+            <div th:if="${invalid_username}" class="auth-form-item errored" th:attr="data-tooltip=${invalid_username.message}" data-flow="right">
               <label for="nickname-input">
                 <div class="label-name">Nickname</div>
                 <span class="input-holder">
-                  <input type="email" placeholder="Ваш Nickname" id="nickname-input" name="username">
+                  <input type="text" placeholder="Ваш Nickname" id="nickname-input" name="username" th:value="${username}">
+                </span>
+              </label>
+              <div class="ERROR">
+                !
+              </div>
+            </div>
+            <div th:unless="${invalid_username}" class="auth-form-item">
+              <label for="nickname-input">
+                <div class="label-name">Nickname</div>
+                <span class="input-holder">
+                  <input type="text" placeholder="Ваш Nickname" id="nickname-input" name="username" th:value="${username}">
                 </span>
               </label>
             </div>
-            <div class="auth-form-item">
+            <div th:if="${invalid_name}" class="auth-form-item errored" th:attr="data-tooltip=${invalid_name.message}" data-flow="right">
               <label for="name-input">
                 <div class="label-name">Имя и фамилия</div>
                 <span class="input-holder">
-                  <input type="email" placeholder="Ваши Имя и Фамилия" id="name-input"  name="name">
+                  <input type="text" placeholder="Ваши Имя и Фамилия" id="name-input"  name="name" th:value="${name}">
+                </span>
+              </label>
+              <div class="ERROR">
+                !
+              </div>
+            </div>
+            <div th:unless="${invalid_name}" class="auth-form-item">
+              <label for="name-input">
+                <div class="label-name">Имя и фамилия</div>
+                <span class="input-holder">
+                  <input type="text" placeholder="Ваши Имя и Фамилия" id="name-input"  name="name" th:value="${name}">
                 </span>
               </label>
             </div>
-            <div class="auth-form-item">
+            <div th:if="${invalid_email}" class="auth-form-item errored" th:attr="data-tooltip=${invalid_email.message}" data-flow="right">
               <label for="email-input">
                 <div class="label-name">E-mail</div>
                 <span class="input-holder">
-                  <input type="email" placeholder="Ваш e-mail" id="email-input"  name="email">
+                  <input type="email" placeholder="Ваш e-mail" id="email-input"  name="email" th:value="${email}">
+                </span>
+              </label>
+              <div class="ERROR">
+                !
+              </div>
+            </div>
+            <div th:unless="${invalid_email}" class="auth-form-item">
+              <label for="email-input">
+                <div class="label-name">E-mail</div>
+                <span class="input-holder">
+                  <input type="email" placeholder="Ваш e-mail" id="email-input"  name="email" th:value="${email}">
                 </span>
               </label>
             </div>
 
-            <div class="auth-form-item">
+            <div th:if="${invalid_password}" class="auth-form-item errored" th:attr="data-tooltip=${invalid_password.message}" data-flow="right">
               <label for="password-input">
                 <div class="label-name">Пароль</div>
                 <span class="input-holder">
-                  <input type="password" placeholder="Ваш пароль" id="password-input"  name="password">
+                  <input type="password" placeholder="Ваш пароль" id="password-input"  name="password" th:value="${password}">
+                </span>
+              </label>
+              <div class="ERROR">
+                !
+              </div>
+            </div>
+            <div th:unless="${invalid_password}" class="auth-form-item">
+              <label for="password-input">
+                <div class="label-name">Пароль</div>
+                <span class="input-holder">
+                  <input type="password" placeholder="Ваш пароль" id="password-input"  name="password" th:value="${password}">
                 </span>
               </label>
             </div>
-            <div class="auth-form-item">
+            <div th:if="${invalid_password}" class="auth-form-item errored" th:attr="data-tooltip=${invalid_password.message}" data-flow="right">
               <label for="rpassword-input">
                 <div class="label-name">Повторить пароль</div>
                 <span class="input-holder">
-                  <input type="password" placeholder="Ваш пароль" id="rpassword-input"  name="repeatPassword">
+                  <input type="password" placeholder="Ваш пароль" id="rpassword-input"  name="repeatPassword" th:value="${repeatPassword}">
+                </span>
+              </label>
+              <div class="ERROR">
+                !
+              </div>
+            </div>
+            <div th:unless="${invalid_password}" class="auth-form-item">
+              <label for="rpassword-input">
+                <div class="label-name">Повторить пароль</div>
+                <span class="input-holder">
+                  <input type="password" placeholder="Ваш пароль" id="rpassword-input"  name="repeatPassword" th:value="${repeatPassword}">
                 </span>
               </label>
             </div>
@@ -101,6 +156,7 @@
       </div>
       <div class="blank-bakground"></div>
     </div>
+    <script th:if="${invalid_authentication}" src="/../static/script/sign-in/sign-in.js"></script>
   </div>
 
 </body>

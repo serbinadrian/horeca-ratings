@@ -21,7 +21,7 @@ public class AuthenticationService {
         User targetUser;
         boolean emailOnly = false;
         List<ErrorMessage> errorMessages = new ArrayList<>();
-        ErrorMessage message = new ErrorMessage("Неверное имя пользователя или пароль", ErrorType.AUTH);
+        ErrorMessage message = new ErrorMessage("Неверное имя пользователя или пароль", ErrorType.INVALID_AUTH);
 
         if (isEmail(username)) {
             user.setEmail(username);
@@ -48,7 +48,10 @@ public class AuthenticationService {
 
         return errorMessages;
     }
-    public List<ErrorMessage> validateRegistration(String username, String password, String repeatPassword, String email) {
+    public List<ErrorMessage> validateRegistration(String username, String name, String password, String repeatPassword, String email) {
+
+        String fullName = normalize(name);
+
         User user = new User();
         user.setName(username);
         user.setPassword(password);
@@ -56,18 +59,23 @@ public class AuthenticationService {
 
         List<ErrorMessage> errorMessages = new ArrayList<>();
 
-        if(!isEmail(email)){
-            ErrorMessage message = new ErrorMessage("Введен не Email", ErrorType.INVALID_EMAIL);
+        if(!isFullName(fullName) || isEmpty(fullName)){
+            ErrorMessage message = new ErrorMessage("Введены некорректные данные", ErrorType.INVALID_NAME);
             errorMessages.add(message);
         }
 
-        if(!isLatinAndNumbers(username) || isUserExists(user)){
-            ErrorMessage message = new ErrorMessage("Пользователь уже существует или введено некорректное имя", ErrorType.INVALID_EMAIL);
+        if(!isEmail(email) || isEmpty(email)){
+            ErrorMessage message = new ErrorMessage("Введен некорректный Email", ErrorType.INVALID_EMAIL);
             errorMessages.add(message);
         }
 
-        if(!isEqualPasswords(password, repeatPassword)){
-            ErrorMessage message = new ErrorMessage("Пароли не совпадают", ErrorType.INVALID_EMAIL);
+        if(!isLatinAndNumbers(username) || isUserExists(user) || isEmpty(username)){
+            ErrorMessage message = new ErrorMessage("Пользователь уже существует или введено некорректное имя", ErrorType.INVALID_USER);
+            errorMessages.add(message);
+        }
+
+        if(!isEqualPasswords(password, repeatPassword) || isEmpty(password) || isEmpty(repeatPassword)){
+            ErrorMessage message = new ErrorMessage("Пароли не совпадают или некорректны", ErrorType.INVALID_PASSWORD);
             errorMessages.add(message);
         }
 
@@ -84,6 +92,11 @@ public class AuthenticationService {
         return email.matches(regex);
     }
 
+    private boolean isFullName(String name){
+        String[] words = name.split(" ");
+        return words.length == 2;
+    }
+
     private boolean isEqualPasswords(String password, String password2) {
         return password.equals(password2);
     }
@@ -92,17 +105,23 @@ public class AuthenticationService {
         return userRepository.existsByName(user.getName()) || userRepository.existsByEmail(user.getEmail());
     }
 
-    private boolean isUsernameExists(String username) {
-        return userRepository.existsByName(username);
+    private boolean isEmpty(String data){
+        return data.length() == 0;
     }
 
-    private boolean isEmailExists(String email) {
-        return userRepository.existsByEmail(email);
-    }
-
-    private boolean isPasswordMatch(User user) {
-        User targetUser = userRepository.findByName(user.getName());
-        String password = targetUser.getPassword();
-        return password.equals(user.getPassword());
+    public String normalize(String data){
+        StringBuilder result = new StringBuilder();
+        String[] words = data.split(" ");
+        for (String word : words) {
+            String target = word.trim();
+            if(!target.isEmpty()){
+                char letter = target.charAt(0);
+                String firstLetter = Character.toString(letter);
+                String stringBody = target.substring(1);
+                result.append(firstLetter.toUpperCase()).append(stringBody.toLowerCase()).append(" ");
+            }
+        }
+        System.out.println("normalized: [" + result.toString().trim() +"]");
+        return result.toString().trim();
     }
 }
