@@ -32,7 +32,7 @@
         </div>
       </div>
       <div th:if="${isSignedIn}" class="user-block" data-tooltip="Личный кабинет" data-flow="bottom">
-        <a href="">
+        <a th:href="@{/userpage/{username}(username=${user.name})}">
           <div class="user-block">
             <div class="username" title="username">
               <span th:text="${user.name}">username</span>

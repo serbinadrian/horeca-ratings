@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>admin</title>
+  <link rel="stylesheet" href="../static/style/root.css">
+  <link rel="stylesheet" href="../static/style/reset.css">
+  <link rel="stylesheet" href="../static/style/lk.css">
+  <link rel="stylesheet" href="../static/style/nav.css">
+  <link rel="stylesheet" href="../static/style/tooltip.css">
+</head>
+
+<body>
+  <nav id="nav">
+    <div class="content">
+      <div class="site-logo" data-tooltip="Главная" data-flow="bottom">
+        <div class="logo-img">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M20 0C16.0444 0 12.1776 1.17298 8.88857 3.37061C5.59959 5.56824 3.03614 8.69181 1.52239 12.3463C0.0086352 16.0009 -0.387432 20.0222 0.384273 23.9018C1.15598 27.7814 3.06079 31.3451 5.85784 34.1421C8.65489 36.9392 12.2186 38.844 16.0982 39.6157C19.9778 40.3874 23.9991 39.9913 27.6536 38.4776C31.3082 36.9638 34.4317 34.4004 36.6294 31.1114C38.827 27.8224 40 23.9556 40 20C39.9942 14.6974 37.8853 9.61368 34.1358 5.8642C30.3863 2.11471 25.3025 0.00573514 20 0V0ZM36.6666 20C36.6686 23.2662 35.7049 26.46 33.8966 29.18L31.91 27.1917C31.7542 27.0355 31.6667 26.8239 31.6666 26.6033V25C31.6666 23.6739 31.1399 22.4021 30.2022 21.4645C29.2645 20.5268 27.9927 20 26.6666 20H21.6666C21.2246 20 20.8007 19.8244 20.4881 19.5118C20.1756 19.1993 20 18.7754 20 18.3333V17.5C20 17.279 20.0878 17.067 20.2441 16.9107C20.4003 16.7545 20.6123 16.6667 20.8333 16.6667C21.9384 16.6667 22.9982 16.2277 23.7796 15.4463C24.561 14.6649 25 13.6051 25 12.5V10.8333C25 10.6123 25.0878 10.4004 25.2441 10.2441C25.4003 10.0878 25.6123 10 25.8333 10H28.1316C29.2356 9.99686 30.2939 9.55848 31.0766 8.78L31.705 8.15167C33.277 9.69846 34.5253 11.5427 35.3771 13.577C36.229 15.6112 36.6673 17.7946 36.6666 20ZM3.41498 21.605L8.67831 26.8683C9.14148 27.3345 9.69261 27.704 10.2997 27.9555C10.9068 28.207 11.5578 28.3354 12.215 28.3333H16.6666C17.1087 28.3333 17.5326 28.5089 17.8452 28.8215C18.1577 29.134 18.3333 29.558 18.3333 30V36.5817C14.5003 36.1904 10.9206 34.4853 8.20153 31.7555C5.48241 29.0258 3.79128 25.4395 3.41498 21.605ZM21.6666 36.5817V30C21.6666 28.6739 21.1399 27.4021 20.2022 26.4645C19.2645 25.5268 17.9927 25 16.6666 25H12.215C11.9958 25.0002 11.7788 24.9571 11.5764 24.8733C11.3739 24.7895 11.1899 24.6666 11.035 24.5117L3.60498 17.0817C4.08194 14.3703 5.22454 11.8198 6.93027 9.65897C8.636 7.49811 10.8515 5.79451 13.378 4.70102C15.9044 3.60753 18.6629 3.15836 21.4057 3.3938C24.1486 3.62925 26.7901 4.54194 29.0933 6.05L28.72 6.42333C28.5631 6.57805 28.352 6.66536 28.1316 6.66667H25.8333C24.7282 6.66667 23.6684 7.10565 22.887 7.88705C22.1056 8.66846 21.6666 9.72826 21.6666 10.8333V12.5C21.6666 12.721 21.5788 12.933 21.4226 13.0893C21.2663 13.2455 21.0543 13.3333 20.8333 13.3333C19.7282 13.3333 18.6684 13.7723 17.887 14.5537C17.1056 15.3351 16.6666 16.3949 16.6666 17.5V18.3333C16.6666 19.6594 17.1934 20.9312 18.1311 21.8689C19.0688 22.8065 20.3406 23.3333 21.6666 23.3333H26.6666C27.1087 23.3333 27.5326 23.5089 27.8452 23.8215C28.1577 24.134 28.3333 24.558 28.3333 25V26.6033C28.3365 27.7073 28.7748 28.7655 29.5533 29.5483L31.7816 31.7767C29.0674 34.5003 25.4927 36.1984 21.6666 36.5817Z"
+              fill="white" />
+          </svg>
+        </div>
+        <div class="dilimiter">
+          <svg width="2" height="40" viewBox="0 0 2 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="1" y1="4.37114e-08" x2="0.999998" y2="40" stroke="white" stroke-width="2" />
+          </svg>
+        </div>
+        <div class="site-name">
+          <a href="/">HORECA</a>
+        </div>
+      </div>
+      <div class="user-block" data-tooltip="Личный кабинет" data-flow="bottom">
+        <a th:href="@{/userpage/{username}(username=${user.name})}">
+          <div class="user-block">
+            <div class="username" title="username">
+              <span th:text="${user.name}">username</span>
+            </div>
+            <div class="user-picture">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M20 0C8.96984 0 0 8.96984 0 20C0 31.0302 8.96984 40 20 40C31.0302 40 40 31.0302 40 20C40 8.96984 31.0302 0 20 0ZM20 2.66683C29.5889 2.66683 37.3333 10.4114 37.3333 20.0002C37.3333 23.2458 36.4486 26.2809 34.9028 28.8748C31.2411 24.7887 25.9131 22.2221 20.0004 22.2221C14.0806 22.2221 8.75675 24.7943 5.09802 28.8887C3.54857 26.2923 2.66746 23.2494 2.66746 19.9998C2.66746 10.411 10.4121 2.66651 20.0008 2.66651L20 2.66683ZM20 4.00024C15.3522 4.00024 11.5556 7.79675 11.5556 12.4447C11.5556 17.0926 15.3521 20.8891 20 20.8891C24.6479 20.8891 28.4444 17.0926 28.4444 12.4447C28.4444 7.79675 24.6479 4.00024 20 4.00024ZM20 6.66706C23.2068 6.66706 25.7779 9.2381 25.7779 12.4449C25.7779 15.6517 23.2068 18.2228 20 18.2228C16.7932 18.2228 14.2221 15.6517 14.2221 12.4449C14.2221 9.2381 16.7932 6.66706 20 6.66706ZM20 24.8893C25.3519 24.8893 30.1127 27.3202 33.2921 31.1253C30.115 34.9197 25.3484 37.3338 20 37.3338C14.6516 37.3338 9.88492 34.92 6.70794 31.1253C9.885 27.3161 14.6444 24.8893 20 24.8893Z"
+                  fill="white" />
+              </svg>
+            </div>
+          </div>
+        </a>
+        <div class="logout" data-tooltip="Выйти" data-flow="right">
+          <a href="/signout">
+            <svg width="35" height="28" viewBox="0 0 35 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M14.5382 27.9999C10.7058 28.0162 7.02289 26.5517 4.29705 23.9281C1.57178 21.3045 0.0265012 17.7359 0 14.0045C0.0368317 11.0742 1.00533 8.22734 2.77241 5.85484C4.53949 3.48235 7.01817 1.70158 9.8673 0.756785C12.7165 -0.187734 15.7967 -0.249696 18.6834 0.579669C21.5703 1.40903 24.1223 3.08888 25.9887 5.38815C26.2658 5.73151 26.3333 6.19275 26.1662 6.59783C25.9991 7.00313 25.6227 7.29081 25.1787 7.3525C24.7348 7.41417 24.2906 7.24058 24.0138 6.89722C22.493 4.99789 20.4012 3.60809 18.0299 2.92192C15.6587 2.23601 13.1268 2.28789 10.7874 3.07078C8.44805 3.85341 6.4181 5.32763 4.98111 7.28788C3.54412 9.24813 2.77144 11.5962 2.77144 14.0044C2.77144 16.4126 3.54404 18.7607 4.98111 20.7209C6.4181 22.6811 8.44805 24.1554 10.7874 24.938C13.1268 25.7209 15.6587 25.7728 18.0299 25.0868C20.4011 24.4007 22.493 23.0109 24.0138 21.1115C24.2202 20.8573 24.5224 20.6938 24.8534 20.6571C25.1843 20.6207 25.5163 20.7141 25.7764 20.9168C26.0356 21.1159 26.2039 21.4068 26.2435 21.726C26.2834 22.0455 26.1919 22.3669 25.9888 22.6206C24.6254 24.3051 22.8854 25.6649 20.9015 26.597C18.9173 27.5292 16.7411 28.0087 14.5382 27.9998L14.5382 27.9999Z" />
+              <path
+                d="M33.752 15.222H11.251C10.8042 15.222 10.3916 14.99 10.1683 14.6135C9.94511 14.237 9.94511 13.773 10.1683 13.3965C10.3916 13.02 10.8042 12.788 11.251 12.788H30.739L27.8638 10.0012C27.5469 9.69231 27.423 9.24247 27.5391 8.82084C27.6551 8.39897 27.9933 8.06971 28.4267 7.95671C28.8597 7.8437 29.3218 7.96431 29.6391 8.27291L34.6393 13.1408C34.8126 13.312 34.9303 13.5293 34.9769 13.7654C35.0235 14.0014 34.9976 14.2459 34.9019 14.4673C34.8081 14.6898 34.6488 14.88 34.444 15.0142C34.2394 15.1484 33.9984 15.2209 33.7517 15.222H33.752Z" />
+              <path
+                d="M28.7518 20.089C28.4194 20.0909 28.1002 19.9638 27.8642 19.7362C27.6275 19.5077 27.4944 19.1967 27.4944 18.872C27.4944 18.5474 27.6275 18.2364 27.8642 18.0079L30.7393 15.2211H11.2513C10.8045 15.2211 10.3919 14.9891 10.1686 14.6126C9.94541 14.2361 9.94541 13.7721 10.1686 13.3956C10.3919 13.0191 10.8045 12.7871 11.2513 12.7871H33.7523C33.9989 12.7882 34.24 12.8607 34.4445 12.9949C34.6494 13.1291 34.8087 13.3193 34.9024 13.5418C34.9981 13.7631 35.0241 14.0076 34.9775 14.2437C34.9309 14.4798 34.8131 14.6971 34.6399 14.8682L29.6396 19.7362C29.4036 19.9638 29.0844 20.0909 28.752 20.089L28.7518 20.089Z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <main>
+    <div class="content">
+      <div class="page-title">
+        Личный кабинет Администратора
+      </div>
+      <div class="page-user-block">
+        <div class="user-image" style="background-color: #D95E5E; border-color: #540B0B; color: #540B0B">
+          QR
+        </div>
+        <div class="user-data">
+          <div class="user-data-row">
+            <div class="row-left-side">Nickname:</div>
+            <div class="row-right-side">Quentin Russel</div>
+          </div>
+          <div class="user-data-row">
+            <div class="row-left-side">Имя и фамилия:</div>
+            <div class="row-right-side">Имя фамилия</div>
+          </div>
+        </div>
+      </div>
+      <div class="page-content-title">
+        Оставленные Вами комментарии:
+      </div>
+      <div class="own-comments-wrapper">
+        <div class="own-comment">
+          <div class="own-comment-body">
+            <div class="own-comment-name-company">
+              Forno Bravo Centrale
+            </div>
+            <div class="own-comment-info">
+              <div class="own-comment-info-content">
+                <div class="own-comment-content-body">
+                  <div class="own-user-photo" style="background: #D95E5E; border-color: #540B0B; color: #540B0B;">
+                    QR
+                  </div>
+                  <div class="own-comment-text">
+                    Шикарнейший ресторан, прекрасная кухня, потрясающий сервис. Уникальные виды! Я был очень рад здесь побывать. Приходите и убедитесь сами!
+                  </div>
+                  <!--<a href="">Дополнить</a>-->
+                </div>
+                <div class="own-comment-rating" data-tooltip="Ваша оценка: 5" data-flow="right">
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="own-comment-info-buttons">
+                <div class="own-comment-delete-icon" data-tooltip="Удалить этот комментарий" data-flow="top">
+                  <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M21.4286 0C15.7455 0 10.2946 2.25777 6.2763 6.2763C2.25777 10.2952 0 15.7455 0 21.4286C0 27.1116 2.25777 32.5625 6.2763 36.5808C10.2952 40.5994 15.7455 42.8571 21.4286 42.8571C27.1116 42.8571 32.5625 40.5994 36.5808 36.5808C40.5994 32.562 42.8571 27.1116 42.8571 21.4286C42.8571 15.7455 40.5994 10.2946 36.5808 6.2763C32.562 2.25777 27.1116 0 21.4286 0ZM21.4286 38.9614C16.7787 38.9614 12.3192 37.1142 9.03141 33.8262C5.7434 30.5382 3.89622 26.0788 3.89622 21.4291C3.89622 16.7794 5.7434 12.3197 9.03141 9.03191C12.3194 5.7439 16.7789 3.89672 21.4286 3.89672C26.0783 3.89672 30.538 5.7439 33.8257 9.03191C37.1137 12.3199 38.9609 16.7794 38.9609 21.4291C38.9609 26.0788 37.1137 30.5385 33.8257 33.8262C30.5377 37.1142 26.0783 38.9614 21.4286 38.9614Z"
+                      fill="#A5A5A5" />
+                    <path
+                      d="M28.6563 14.2013C28.2903 13.8324 27.7927 13.625 27.2732 13.625C26.7537 13.625 26.256 13.8324 25.8901 14.2013L21.429 18.6819L16.9679 14.2013C16.4738 13.7072 15.7534 13.5141 15.0787 13.6951C14.4036 13.8758 13.8763 14.4031 13.6956 15.0782C13.5146 15.7529 13.7077 16.4733 14.2017 16.9674L18.6824 21.4285L14.2017 25.8896C13.8329 26.2556 13.6255 26.7532 13.6255 27.2727C13.6255 27.7922 13.8329 28.2899 14.2017 28.6558C14.5677 29.0246 15.0654 29.232 15.5848 29.232C16.1043 29.232 16.602 29.0246 16.9679 28.6558L21.429 24.1751L25.8901 28.6558C26.256 29.0246 26.7537 29.232 27.2732 29.232C27.7926 29.232 28.2904 29.0246 28.6562 28.6558C29.0251 28.2899 29.2325 27.7922 29.2325 27.2727C29.2325 26.7532 29.0251 26.2555 28.6562 25.8896L24.1756 21.4285L28.6562 16.9674C29.0251 16.6015 29.2325 16.1038 29.2325 15.5844C29.2325 15.0649 29.0251 14.5671 28.6562 14.2013L28.6563 14.2013Z"
+                      fill="#A5A5A5" />
+                  </svg>
+                </div>
+                <div class="own-comment-edit-icon" data-tooltip="Редактировать этот комментарий" data-flow="bottom">
+                  <svg width="43" height="44" viewBox="0 0 43 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M26.7548 13.7139L30.0003 16.9593L28.1029 18.8567L24.8574 15.6113L26.7548 13.7139Z" fill="#A5A5A5" />
+                    <path d="M15.7851 31.1882L11.9999 31.7142L12.5468 27.9237L24.1614 16.2856L27.4284 19.5357L15.7851 31.1882Z" fill="#A5A5A5" />
+                    <path
+                      d="M21.4286 0.856934C15.7455 0.856934 10.2946 3.1147 6.2763 7.13324C2.25777 11.1521 0 16.6025 0 22.2855C0 27.9685 2.25777 33.4195 6.2763 37.4378C10.2952 41.4563 15.7455 43.7141 21.4286 43.7141C27.1116 43.7141 32.5625 41.4563 36.5808 37.4378C40.5994 33.4189 42.8571 27.9685 42.8571 22.2855C42.8571 16.6025 40.5994 11.1515 36.5808 7.13324C32.562 3.1147 27.1116 0.856934 21.4286 0.856934ZM21.4286 39.8183C16.7787 39.8183 12.3192 37.9712 9.03141 34.6832C5.7434 31.3951 3.89622 26.9357 3.89622 22.286C3.89622 17.6363 5.7434 13.1766 9.03141 9.88885C12.3194 6.60083 16.7789 4.75366 21.4286 4.75366C26.0783 4.75366 30.538 6.60083 33.8257 9.88885C37.1137 13.1769 38.9609 17.6363 38.9609 22.286C38.9609 26.9357 37.1137 31.3954 33.8257 34.6832C30.5377 37.9712 26.0783 39.8183 21.4286 39.8183Z"
+                      fill="#A5A5A5" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="own-comment-date">12.10.2000</div>
+        </div>
+        <div class="own-comment">
+          <div class="own-comment-body">
+            <div class="own-comment-name-company">
+              Forno Bravo Centrale
+            </div>
+            <div class="own-comment-info">
+              <div class="own-comment-info-content">
+                <div class="own-comment-content-body">
+                  <div class="own-user-photo" style="background: #D95E5E; border-color: #540B0B; color: #540B0B;">
+                    QR
+                  </div>
+                  <div class="own-comment-text">
+                    Шикарнейший ресторан, прекрасная кухня, потрясающий сервис. Уникальные виды! Я был очень рад здесь побывать. Приходите и убедитесь сами!
+                  </div>
+                  <!--<a href="">Дополнить</a>-->
+                </div>
+                <div class="own-comment-rating" data-tooltip="Ваша оценка: 5" data-flow="right">
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="own-comment-info-buttons">
+                <div class="own-comment-delete-icon" data-tooltip="Удалить этот комментарий" data-flow="top">
+                  <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M21.4286 0C15.7455 0 10.2946 2.25777 6.2763 6.2763C2.25777 10.2952 0 15.7455 0 21.4286C0 27.1116 2.25777 32.5625 6.2763 36.5808C10.2952 40.5994 15.7455 42.8571 21.4286 42.8571C27.1116 42.8571 32.5625 40.5994 36.5808 36.5808C40.5994 32.562 42.8571 27.1116 42.8571 21.4286C42.8571 15.7455 40.5994 10.2946 36.5808 6.2763C32.562 2.25777 27.1116 0 21.4286 0ZM21.4286 38.9614C16.7787 38.9614 12.3192 37.1142 9.03141 33.8262C5.7434 30.5382 3.89622 26.0788 3.89622 21.4291C3.89622 16.7794 5.7434 12.3197 9.03141 9.03191C12.3194 5.7439 16.7789 3.89672 21.4286 3.89672C26.0783 3.89672 30.538 5.7439 33.8257 9.03191C37.1137 12.3199 38.9609 16.7794 38.9609 21.4291C38.9609 26.0788 37.1137 30.5385 33.8257 33.8262C30.5377 37.1142 26.0783 38.9614 21.4286 38.9614Z"
+                      fill="#A5A5A5" />
+                    <path
+                      d="M28.6563 14.2013C28.2903 13.8324 27.7927 13.625 27.2732 13.625C26.7537 13.625 26.256 13.8324 25.8901 14.2013L21.429 18.6819L16.9679 14.2013C16.4738 13.7072 15.7534 13.5141 15.0787 13.6951C14.4036 13.8758 13.8763 14.4031 13.6956 15.0782C13.5146 15.7529 13.7077 16.4733 14.2017 16.9674L18.6824 21.4285L14.2017 25.8896C13.8329 26.2556 13.6255 26.7532 13.6255 27.2727C13.6255 27.7922 13.8329 28.2899 14.2017 28.6558C14.5677 29.0246 15.0654 29.232 15.5848 29.232C16.1043 29.232 16.602 29.0246 16.9679 28.6558L21.429 24.1751L25.8901 28.6558C26.256 29.0246 26.7537 29.232 27.2732 29.232C27.7926 29.232 28.2904 29.0246 28.6562 28.6558C29.0251 28.2899 29.2325 27.7922 29.2325 27.2727C29.2325 26.7532 29.0251 26.2555 28.6562 25.8896L24.1756 21.4285L28.6562 16.9674C29.0251 16.6015 29.2325 16.1038 29.2325 15.5844C29.2325 15.0649 29.0251 14.5671 28.6562 14.2013L28.6563 14.2013Z"
+                      fill="#A5A5A5" />
+                  </svg>
+                </div>
+                <div class="own-comment-edit-icon" data-tooltip="Редактировать этот комментарий" data-flow="bottom">
+                  <svg width="43" height="44" viewBox="0 0 43 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M26.7548 13.7139L30.0003 16.9593L28.1029 18.8567L24.8574 15.6113L26.7548 13.7139Z" fill="#A5A5A5" />
+                    <path d="M15.7851 31.1882L11.9999 31.7142L12.5468 27.9237L24.1614 16.2856L27.4284 19.5357L15.7851 31.1882Z" fill="#A5A5A5" />
+                    <path
+                      d="M21.4286 0.856934C15.7455 0.856934 10.2946 3.1147 6.2763 7.13324C2.25777 11.1521 0 16.6025 0 22.2855C0 27.9685 2.25777 33.4195 6.2763 37.4378C10.2952 41.4563 15.7455 43.7141 21.4286 43.7141C27.1116 43.7141 32.5625 41.4563 36.5808 37.4378C40.5994 33.4189 42.8571 27.9685 42.8571 22.2855C42.8571 16.6025 40.5994 11.1515 36.5808 7.13324C32.562 3.1147 27.1116 0.856934 21.4286 0.856934ZM21.4286 39.8183C16.7787 39.8183 12.3192 37.9712 9.03141 34.6832C5.7434 31.3951 3.89622 26.9357 3.89622 22.286C3.89622 17.6363 5.7434 13.1766 9.03141 9.88885C12.3194 6.60083 16.7789 4.75366 21.4286 4.75366C26.0783 4.75366 30.538 6.60083 33.8257 9.88885C37.1137 13.1769 38.9609 17.6363 38.9609 22.286C38.9609 26.9357 37.1137 31.3954 33.8257 34.6832C30.5377 37.9712 26.0783 39.8183 21.4286 39.8183Z"
+                      fill="#A5A5A5" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="own-comment-date">12.10.2000</div>
+        </div>
+        <div class="own-comment">
+          <div class="own-comment-body">
+            <div class="own-comment-name-company">
+              Forno Bravo Centrale
+            </div>
+            <div class="own-comment-info">
+              <div class="own-comment-info-content">
+                <div class="own-comment-content-body">
+                  <div class="own-user-photo" style="background: #D95E5E; border-color: #540B0B; color: #540B0B;">
+                    QR
+                  </div>
+                  <div class="own-comment-text">
+                    Шикарнейший ресторан, прекрасная кухня, потрясающий сервис. Уникальные виды! Я был очень рад здесь побывать. Приходите и убедитесь сами!
+                  </div>
+                  <!--<a href="">Дополнить</a>-->
+                </div>
+                <div class="own-comment-rating" data-tooltip="Ваша оценка: 5" data-flow="right">
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="own-comment-info-buttons">
+                <div class="own-comment-delete-icon" data-tooltip="Удалить этот комментарий" data-flow="top">
+                  <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M21.4286 0C15.7455 0 10.2946 2.25777 6.2763 6.2763C2.25777 10.2952 0 15.7455 0 21.4286C0 27.1116 2.25777 32.5625 6.2763 36.5808C10.2952 40.5994 15.7455 42.8571 21.4286 42.8571C27.1116 42.8571 32.5625 40.5994 36.5808 36.5808C40.5994 32.562 42.8571 27.1116 42.8571 21.4286C42.8571 15.7455 40.5994 10.2946 36.5808 6.2763C32.562 2.25777 27.1116 0 21.4286 0ZM21.4286 38.9614C16.7787 38.9614 12.3192 37.1142 9.03141 33.8262C5.7434 30.5382 3.89622 26.0788 3.89622 21.4291C3.89622 16.7794 5.7434 12.3197 9.03141 9.03191C12.3194 5.7439 16.7789 3.89672 21.4286 3.89672C26.0783 3.89672 30.538 5.7439 33.8257 9.03191C37.1137 12.3199 38.9609 16.7794 38.9609 21.4291C38.9609 26.0788 37.1137 30.5385 33.8257 33.8262C30.5377 37.1142 26.0783 38.9614 21.4286 38.9614Z"
+                      fill="#A5A5A5" />
+                    <path
+                      d="M28.6563 14.2013C28.2903 13.8324 27.7927 13.625 27.2732 13.625C26.7537 13.625 26.256 13.8324 25.8901 14.2013L21.429 18.6819L16.9679 14.2013C16.4738 13.7072 15.7534 13.5141 15.0787 13.6951C14.4036 13.8758 13.8763 14.4031 13.6956 15.0782C13.5146 15.7529 13.7077 16.4733 14.2017 16.9674L18.6824 21.4285L14.2017 25.8896C13.8329 26.2556 13.6255 26.7532 13.6255 27.2727C13.6255 27.7922 13.8329 28.2899 14.2017 28.6558C14.5677 29.0246 15.0654 29.232 15.5848 29.232C16.1043 29.232 16.602 29.0246 16.9679 28.6558L21.429 24.1751L25.8901 28.6558C26.256 29.0246 26.7537 29.232 27.2732 29.232C27.7926 29.232 28.2904 29.0246 28.6562 28.6558C29.0251 28.2899 29.2325 27.7922 29.2325 27.2727C29.2325 26.7532 29.0251 26.2555 28.6562 25.8896L24.1756 21.4285L28.6562 16.9674C29.0251 16.6015 29.2325 16.1038 29.2325 15.5844C29.2325 15.0649 29.0251 14.5671 28.6562 14.2013L28.6563 14.2013Z"
+                      fill="#A5A5A5" />
+                  </svg>
+                </div>
+                <div class="own-comment-edit-icon" data-tooltip="Редактировать этот комментарий" data-flow="bottom">
+                  <svg width="43" height="44" viewBox="0 0 43 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M26.7548 13.7139L30.0003 16.9593L28.1029 18.8567L24.8574 15.6113L26.7548 13.7139Z" fill="#A5A5A5" />
+                    <path d="M15.7851 31.1882L11.9999 31.7142L12.5468 27.9237L24.1614 16.2856L27.4284 19.5357L15.7851 31.1882Z" fill="#A5A5A5" />
+                    <path
+                      d="M21.4286 0.856934C15.7455 0.856934 10.2946 3.1147 6.2763 7.13324C2.25777 11.1521 0 16.6025 0 22.2855C0 27.9685 2.25777 33.4195 6.2763 37.4378C10.2952 41.4563 15.7455 43.7141 21.4286 43.7141C27.1116 43.7141 32.5625 41.4563 36.5808 37.4378C40.5994 33.4189 42.8571 27.9685 42.8571 22.2855C42.8571 16.6025 40.5994 11.1515 36.5808 7.13324C32.562 3.1147 27.1116 0.856934 21.4286 0.856934ZM21.4286 39.8183C16.7787 39.8183 12.3192 37.9712 9.03141 34.6832C5.7434 31.3951 3.89622 26.9357 3.89622 22.286C3.89622 17.6363 5.7434 13.1766 9.03141 9.88885C12.3194 6.60083 16.7789 4.75366 21.4286 4.75366C26.0783 4.75366 30.538 6.60083 33.8257 9.88885C37.1137 13.1769 38.9609 17.6363 38.9609 22.286C38.9609 26.9357 37.1137 31.3954 33.8257 34.6832C30.5377 37.9712 26.0783 39.8183 21.4286 39.8183Z"
+                      fill="#A5A5A5" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="own-comment-date">12.10.2000</div>
+        </div>
+        <div class="own-comment">
+          <div class="own-comment-body">
+            <div class="own-comment-name-company">
+              Forno Bravo Centrale
+            </div>
+            <div class="own-comment-info">
+              <div class="own-comment-info-content">
+                <div class="own-comment-content-body">
+                  <div class="own-user-photo" style="background: #D95E5E; border-color: #540B0B; color: #540B0B;">
+                    QR
+                  </div>
+                  <div class="own-comment-text">
+                    Шикарнейший ресторан, прекрасная кухня, потрясающий сервис. Уникальные виды! Я был очень рад здесь побывать. Приходите и убедитесь сами!
+                  </div>
+                  <!--<a href="">Дополнить</a>-->
+                </div>
+                <div class="own-comment-rating" data-tooltip="Ваша оценка: 5" data-flow="right">
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="own-comment-info-buttons">
+                <div class="own-comment-delete-icon" data-tooltip="Удалить этот комментарий" data-flow="top">
+                  <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M21.4286 0C15.7455 0 10.2946 2.25777 6.2763 6.2763C2.25777 10.2952 0 15.7455 0 21.4286C0 27.1116 2.25777 32.5625 6.2763 36.5808C10.2952 40.5994 15.7455 42.8571 21.4286 42.8571C27.1116 42.8571 32.5625 40.5994 36.5808 36.5808C40.5994 32.562 42.8571 27.1116 42.8571 21.4286C42.8571 15.7455 40.5994 10.2946 36.5808 6.2763C32.562 2.25777 27.1116 0 21.4286 0ZM21.4286 38.9614C16.7787 38.9614 12.3192 37.1142 9.03141 33.8262C5.7434 30.5382 3.89622 26.0788 3.89622 21.4291C3.89622 16.7794 5.7434 12.3197 9.03141 9.03191C12.3194 5.7439 16.7789 3.89672 21.4286 3.89672C26.0783 3.89672 30.538 5.7439 33.8257 9.03191C37.1137 12.3199 38.9609 16.7794 38.9609 21.4291C38.9609 26.0788 37.1137 30.5385 33.8257 33.8262C30.5377 37.1142 26.0783 38.9614 21.4286 38.9614Z"
+                      fill="#A5A5A5" />
+                    <path
+                      d="M28.6563 14.2013C28.2903 13.8324 27.7927 13.625 27.2732 13.625C26.7537 13.625 26.256 13.8324 25.8901 14.2013L21.429 18.6819L16.9679 14.2013C16.4738 13.7072 15.7534 13.5141 15.0787 13.6951C14.4036 13.8758 13.8763 14.4031 13.6956 15.0782C13.5146 15.7529 13.7077 16.4733 14.2017 16.9674L18.6824 21.4285L14.2017 25.8896C13.8329 26.2556 13.6255 26.7532 13.6255 27.2727C13.6255 27.7922 13.8329 28.2899 14.2017 28.6558C14.5677 29.0246 15.0654 29.232 15.5848 29.232C16.1043 29.232 16.602 29.0246 16.9679 28.6558L21.429 24.1751L25.8901 28.6558C26.256 29.0246 26.7537 29.232 27.2732 29.232C27.7926 29.232 28.2904 29.0246 28.6562 28.6558C29.0251 28.2899 29.2325 27.7922 29.2325 27.2727C29.2325 26.7532 29.0251 26.2555 28.6562 25.8896L24.1756 21.4285L28.6562 16.9674C29.0251 16.6015 29.2325 16.1038 29.2325 15.5844C29.2325 15.0649 29.0251 14.5671 28.6562 14.2013L28.6563 14.2013Z"
+                      fill="#A5A5A5" />
+                  </svg>
+                </div>
+                <div class="own-comment-edit-icon" data-tooltip="Редактировать этот комментарий" data-flow="bottom">
+                  <svg width="43" height="44" viewBox="0 0 43 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M26.7548 13.7139L30.0003 16.9593L28.1029 18.8567L24.8574 15.6113L26.7548 13.7139Z" fill="#A5A5A5" />
+                    <path d="M15.7851 31.1882L11.9999 31.7142L12.5468 27.9237L24.1614 16.2856L27.4284 19.5357L15.7851 31.1882Z" fill="#A5A5A5" />
+                    <path
+                      d="M21.4286 0.856934C15.7455 0.856934 10.2946 3.1147 6.2763 7.13324C2.25777 11.1521 0 16.6025 0 22.2855C0 27.9685 2.25777 33.4195 6.2763 37.4378C10.2952 41.4563 15.7455 43.7141 21.4286 43.7141C27.1116 43.7141 32.5625 41.4563 36.5808 37.4378C40.5994 33.4189 42.8571 27.9685 42.8571 22.2855C42.8571 16.6025 40.5994 11.1515 36.5808 7.13324C32.562 3.1147 27.1116 0.856934 21.4286 0.856934ZM21.4286 39.8183C16.7787 39.8183 12.3192 37.9712 9.03141 34.6832C5.7434 31.3951 3.89622 26.9357 3.89622 22.286C3.89622 17.6363 5.7434 13.1766 9.03141 9.88885C12.3194 6.60083 16.7789 4.75366 21.4286 4.75366C26.0783 4.75366 30.538 6.60083 33.8257 9.88885C37.1137 13.1769 38.9609 17.6363 38.9609 22.286C38.9609 26.9357 37.1137 31.3954 33.8257 34.6832C30.5377 37.9712 26.0783 39.8183 21.4286 39.8183Z"
+                      fill="#A5A5A5" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="own-comment-date">12.10.2000</div>
+        </div>
+        <div class="own-comment">
+          <div class="own-comment-body">
+            <div class="own-comment-name-company">
+              Forno Bravo Centrale
+            </div>
+            <div class="own-comment-info">
+              <div class="own-comment-info-content">
+                <div class="own-comment-content-body">
+                  <div class="own-user-photo" style="background: #D95E5E; border-color: #540B0B; color: #540B0B;">
+                    QR
+                  </div>
+                  <div class="own-comment-text">
+                    Шикарнейший ресторан, прекрасная кухня, потрясающий сервис. Уникальные виды! Я был очень рад здесь побывать. Приходите и убедитесь сами!
+                  </div>
+                  <!--<a href="">Дополнить</a>-->
+                </div>
+                <div class="own-comment-rating" data-tooltip="Ваша оценка: 5" data-flow="right">
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="own-comment-info-buttons">
+                <div class="own-comment-delete-icon" data-tooltip="Удалить этот комментарий" data-flow="top">
+                  <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M21.4286 0C15.7455 0 10.2946 2.25777 6.2763 6.2763C2.25777 10.2952 0 15.7455 0 21.4286C0 27.1116 2.25777 32.5625 6.2763 36.5808C10.2952 40.5994 15.7455 42.8571 21.4286 42.8571C27.1116 42.8571 32.5625 40.5994 36.5808 36.5808C40.5994 32.562 42.8571 27.1116 42.8571 21.4286C42.8571 15.7455 40.5994 10.2946 36.5808 6.2763C32.562 2.25777 27.1116 0 21.4286 0ZM21.4286 38.9614C16.7787 38.9614 12.3192 37.1142 9.03141 33.8262C5.7434 30.5382 3.89622 26.0788 3.89622 21.4291C3.89622 16.7794 5.7434 12.3197 9.03141 9.03191C12.3194 5.7439 16.7789 3.89672 21.4286 3.89672C26.0783 3.89672 30.538 5.7439 33.8257 9.03191C37.1137 12.3199 38.9609 16.7794 38.9609 21.4291C38.9609 26.0788 37.1137 30.5385 33.8257 33.8262C30.5377 37.1142 26.0783 38.9614 21.4286 38.9614Z"
+                      fill="#A5A5A5" />
+                    <path
+                      d="M28.6563 14.2013C28.2903 13.8324 27.7927 13.625 27.2732 13.625C26.7537 13.625 26.256 13.8324 25.8901 14.2013L21.429 18.6819L16.9679 14.2013C16.4738 13.7072 15.7534 13.5141 15.0787 13.6951C14.4036 13.8758 13.8763 14.4031 13.6956 15.0782C13.5146 15.7529 13.7077 16.4733 14.2017 16.9674L18.6824 21.4285L14.2017 25.8896C13.8329 26.2556 13.6255 26.7532 13.6255 27.2727C13.6255 27.7922 13.8329 28.2899 14.2017 28.6558C14.5677 29.0246 15.0654 29.232 15.5848 29.232C16.1043 29.232 16.602 29.0246 16.9679 28.6558L21.429 24.1751L25.8901 28.6558C26.256 29.0246 26.7537 29.232 27.2732 29.232C27.7926 29.232 28.2904 29.0246 28.6562 28.6558C29.0251 28.2899 29.2325 27.7922 29.2325 27.2727C29.2325 26.7532 29.0251 26.2555 28.6562 25.8896L24.1756 21.4285L28.6562 16.9674C29.0251 16.6015 29.2325 16.1038 29.2325 15.5844C29.2325 15.0649 29.0251 14.5671 28.6562 14.2013L28.6563 14.2013Z"
+                      fill="#A5A5A5" />
+                  </svg>
+                </div>
+                <div class="own-comment-edit-icon" data-tooltip="Редактировать этот комментарий" data-flow="bottom">
+                  <svg width="43" height="44" viewBox="0 0 43 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M26.7548 13.7139L30.0003 16.9593L28.1029 18.8567L24.8574 15.6113L26.7548 13.7139Z" fill="#A5A5A5" />
+                    <path d="M15.7851 31.1882L11.9999 31.7142L12.5468 27.9237L24.1614 16.2856L27.4284 19.5357L15.7851 31.1882Z" fill="#A5A5A5" />
+                    <path
+                      d="M21.4286 0.856934C15.7455 0.856934 10.2946 3.1147 6.2763 7.13324C2.25777 11.1521 0 16.6025 0 22.2855C0 27.9685 2.25777 33.4195 6.2763 37.4378C10.2952 41.4563 15.7455 43.7141 21.4286 43.7141C27.1116 43.7141 32.5625 41.4563 36.5808 37.4378C40.5994 33.4189 42.8571 27.9685 42.8571 22.2855C42.8571 16.6025 40.5994 11.1515 36.5808 7.13324C32.562 3.1147 27.1116 0.856934 21.4286 0.856934ZM21.4286 39.8183C16.7787 39.8183 12.3192 37.9712 9.03141 34.6832C5.7434 31.3951 3.89622 26.9357 3.89622 22.286C3.89622 17.6363 5.7434 13.1766 9.03141 9.88885C12.3194 6.60083 16.7789 4.75366 21.4286 4.75366C26.0783 4.75366 30.538 6.60083 33.8257 9.88885C37.1137 13.1769 38.9609 17.6363 38.9609 22.286C38.9609 26.9357 37.1137 31.3954 33.8257 34.6832C30.5377 37.9712 26.0783 39.8183 21.4286 39.8183Z"
+                      fill="#A5A5A5" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="own-comment-date">12.10.2000</div>
+        </div>
+        <div class="own-comment">
+          <div class="own-comment-body">
+            <div class="own-comment-name-company">
+              Forno Bravo Centrale
+            </div>
+            <div class="own-comment-info">
+              <div class="own-comment-info-content">
+                <div class="own-comment-content-body">
+                  <div class="own-user-photo" style="background: #D95E5E; border-color: #540B0B; color: #540B0B;">
+                    QR
+                  </div>
+                  <div class="own-comment-text">
+                    Шикарнейший ресторан, прекрасная кухня, потрясающий сервис. Уникальные виды! Я был очень рад здесь побывать. Приходите и убедитесь сами!
+                  </div>
+                  <!--<a href="">Дополнить</a>-->
+                </div>
+                <div class="own-comment-rating" data-tooltip="Ваша оценка: 5" data-flow="right">
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-left-half active">
+                    <svg width="15" height="30" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16.5L3.99817 20L5.07409 12.7807L0 7.7606L6.89459 6.6003L10 0V5.58162V8V12.7807V16.5Z" />
+                    </svg>
+                  </div>
+                  <div class="own-comment-half-star own-comment-right-half active">
+                    <svg width="15" height="30" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 16.5L6.3979 20L5.2295 12.7807L10.7397 7.7606L3.25252 6.6003L-3.52859e-05 0L0 2V5V7.5V12.5V14.5V15.5V16.5Z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="own-comment-info-buttons">
+                <div class="own-comment-delete-icon" data-tooltip="Удалить этот комментарий" data-flow="top">
+                  <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M21.4286 0C15.7455 0 10.2946 2.25777 6.2763 6.2763C2.25777 10.2952 0 15.7455 0 21.4286C0 27.1116 2.25777 32.5625 6.2763 36.5808C10.2952 40.5994 15.7455 42.8571 21.4286 42.8571C27.1116 42.8571 32.5625 40.5994 36.5808 36.5808C40.5994 32.562 42.8571 27.1116 42.8571 21.4286C42.8571 15.7455 40.5994 10.2946 36.5808 6.2763C32.562 2.25777 27.1116 0 21.4286 0ZM21.4286 38.9614C16.7787 38.9614 12.3192 37.1142 9.03141 33.8262C5.7434 30.5382 3.89622 26.0788 3.89622 21.4291C3.89622 16.7794 5.7434 12.3197 9.03141 9.03191C12.3194 5.7439 16.7789 3.89672 21.4286 3.89672C26.0783 3.89672 30.538 5.7439 33.8257 9.03191C37.1137 12.3199 38.9609 16.7794 38.9609 21.4291C38.9609 26.0788 37.1137 30.5385 33.8257 33.8262C30.5377 37.1142 26.0783 38.9614 21.4286 38.9614Z"
+                      fill="#A5A5A5" />
+                    <path
+                      d="M28.6563 14.2013C28.2903 13.8324 27.7927 13.625 27.2732 13.625C26.7537 13.625 26.256 13.8324 25.8901 14.2013L21.429 18.6819L16.9679 14.2013C16.4738 13.7072 15.7534 13.5141 15.0787 13.6951C14.4036 13.8758 13.8763 14.4031 13.6956 15.0782C13.5146 15.7529 13.7077 16.4733 14.2017 16.9674L18.6824 21.4285L14.2017 25.8896C13.8329 26.2556 13.6255 26.7532 13.6255 27.2727C13.6255 27.7922 13.8329 28.2899 14.2017 28.6558C14.5677 29.0246 15.0654 29.232 15.5848 29.232C16.1043 29.232 16.602 29.0246 16.9679 28.6558L21.429 24.1751L25.8901 28.6558C26.256 29.0246 26.7537 29.232 27.2732 29.232C27.7926 29.232 28.2904 29.0246 28.6562 28.6558C29.0251 28.2899 29.2325 27.7922 29.2325 27.2727C29.2325 26.7532 29.0251 26.2555 28.6562 25.8896L24.1756 21.4285L28.6562 16.9674C29.0251 16.6015 29.2325 16.1038 29.2325 15.5844C29.2325 15.0649 29.0251 14.5671 28.6562 14.2013L28.6563 14.2013Z"
+                      fill="#A5A5A5" />
+                  </svg>
+                </div>
+                <div class="own-comment-edit-icon" data-tooltip="Редактировать этот комментарий" data-flow="bottom">
+                  <svg width="43" height="44" viewBox="0 0 43 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M26.7548 13.7139L30.0003 16.9593L28.1029 18.8567L24.8574 15.6113L26.7548 13.7139Z" fill="#A5A5A5" />
+                    <path d="M15.7851 31.1882L11.9999 31.7142L12.5468 27.9237L24.1614 16.2856L27.4284 19.5357L15.7851 31.1882Z" fill="#A5A5A5" />
+                    <path
+                      d="M21.4286 0.856934C15.7455 0.856934 10.2946 3.1147 6.2763 7.13324C2.25777 11.1521 0 16.6025 0 22.2855C0 27.9685 2.25777 33.4195 6.2763 37.4378C10.2952 41.4563 15.7455 43.7141 21.4286 43.7141C27.1116 43.7141 32.5625 41.4563 36.5808 37.4378C40.5994 33.4189 42.8571 27.9685 42.8571 22.2855C42.8571 16.6025 40.5994 11.1515 36.5808 7.13324C32.562 3.1147 27.1116 0.856934 21.4286 0.856934ZM21.4286 39.8183C16.7787 39.8183 12.3192 37.9712 9.03141 34.6832C5.7434 31.3951 3.89622 26.9357 3.89622 22.286C3.89622 17.6363 5.7434 13.1766 9.03141 9.88885C12.3194 6.60083 16.7789 4.75366 21.4286 4.75366C26.0783 4.75366 30.538 6.60083 33.8257 9.88885C37.1137 13.1769 38.9609 17.6363 38.9609 22.286C38.9609 26.9357 37.1137 31.3954 33.8257 34.6832C30.5377 37.9712 26.0783 39.8183 21.4286 39.8183Z"
+                      fill="#A5A5A5" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="own-comment-date">12.10.2000</div>
+        </div>
+      </div>
+      <div class="page-naviagtion-block">
+        <form action="">
+          <div class="page-number-navigation">
+            <div class="arrow previous-page" data-tooltip="Предыдущая страница" data-flow="left">
+              <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M0.292893 7.29289C-0.097631 7.68342 -0.097631 8.31658 0.292893 8.70711L6.65685 15.0711C7.04738 15.4616 7.68054 15.4616 8.07107 15.0711C8.46159 14.6805 8.46159 14.0474 8.07107 13.6569L2.41421 8L8.07107 2.34315C8.46159 1.95262 8.46159 1.31946 8.07107 0.928932C7.68054 0.538408 7.04738 0.538408 6.65685 0.928932L0.292893 7.29289ZM2 7H1L1 9H2L2 7Z"
+                  fill="white" />
+              </svg>
+            </div>
+            <div class="page-numbers">
+              <div class="page-number active">1</div>
+              <div class="page-number">2</div>
+              <div class="page-number">3</div>
+              <div class="page-number no-click">...</div>
+              <div class="page-number">5</div>
+            </div>
+            <div class="arrow next-page" data-tooltip="Следующая страница" data-flow="right">
+              <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M8.70711 8.70711C9.09763 8.31658 9.09763 7.68342 8.70711 7.29289L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L6.58579 8L0.928932 13.6569C0.538408 14.0474 0.538408 14.6805 0.928932 15.0711C1.31946 15.4616 1.95262 15.4616 2.34315 15.0711L8.70711 8.70711ZM7 9H8V7H7V9Z"
+                  fill="white" />
+              </svg>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+</body>
+
+</html>

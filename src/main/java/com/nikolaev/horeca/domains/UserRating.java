@@ -1,0 +1,112 @@
+package com.nikolaev.horeca.domains;
+
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "UserRating")
+@EnableAutoConfiguration
+public class UserRating {
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    private long id;
+    private long userId;
+    private long organizationId;
+    private int personnelRate;
+    private int tasteRate;
+    private int locationRate;
+    private int cleanRate;
+    private int moodRate;
+    private int serviceToPriceRate;
+    private int foodToPriceRate;
+    private String comment;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public long getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(long organizationId) {
+        this.organizationId = organizationId;
+    }
+
+    public int getPersonnelRate() {
+        return personnelRate;
+    }
+
+    public void setPersonnelRate(int personnelRate) {
+        this.personnelRate = personnelRate;
+    }
+
+    public int getTasteRate() {
+        return tasteRate;
+    }
+
+    public void setTasteRate(int tasteRate) {
+        this.tasteRate = tasteRate;
+    }
+
+    public int getLocationRate() {
+        return locationRate;
+    }
+
+    public void setLocationRate(int locationRate) {
+        this.locationRate = locationRate;
+    }
+
+    public int getCleanRate() {
+        return cleanRate;
+    }
+
+    public void setCleanRate(int cleanRate) {
+        this.cleanRate = cleanRate;
+    }
+
+    public int getMoodRate() {
+        return moodRate;
+    }
+
+    public void setMoodRate(int moodRate) {
+        this.moodRate = moodRate;
+    }
+
+    public int getServiceToPriceRate() {
+        return serviceToPriceRate;
+    }
+
+    public void setServiceToPriceRate(int serviceToPriceRate) {
+        this.serviceToPriceRate = serviceToPriceRate;
+    }
+
+    public int getFoodToPriceRate() {
+        return foodToPriceRate;
+    }
+
+    public void setFoodToPriceRate(int foodToPriceRate) {
+        this.foodToPriceRate = foodToPriceRate;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+}

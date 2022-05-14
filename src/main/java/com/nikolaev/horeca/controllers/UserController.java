@@ -1,14 +1,19 @@
 package com.nikolaev.horeca.controllers;
 
-import com.nikolaev.horeca.domains.ErrorMessage;
-import com.nikolaev.horeca.domains.User;
+import com.nikolaev.horeca.datasets.UserAvatarColorsDataset;
+import com.nikolaev.horeca.domains.*;
 import com.nikolaev.horeca.misc.Role;
+import com.nikolaev.horeca.repositories.OrganizationRepository;
+import com.nikolaev.horeca.repositories.UserAvatarsRepository;
+import com.nikolaev.horeca.repositories.UserRatingRepository;
 import com.nikolaev.horeca.repositories.UserRepository;
+import com.nikolaev.horeca.services.AdminService;
 import com.nikolaev.horeca.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,7 +25,15 @@ public class UserController {
     @Autowired
     AuthenticationService authenticationService;
     @Autowired
+    AdminService adminService;
+    @Autowired
     UserRepository userRepository;
+    @Autowired
+    UserAvatarsRepository userAvatarsRepository;
+    @Autowired
+    UserRatingRepository userRatingRepository;
+    @Autowired
+    OrganizationRepository organizationRepository;
     User user = new User();
     boolean isSignedIn = false;
 
@@ -29,10 +42,40 @@ public class UserController {
         if (isSignedIn) {
             model.addAttribute("user", user);
         }
-
+        boolean isAdmin = userRepository.existsByName("admin");
+        if(!isAdmin){
+            adminService.createAdmin();
+        }
+        List<Organization> organizations = organizationRepository.findAll();
         model.addAttribute("isSignedIn", isSignedIn);
+        model.addAttribute("organizations", organizations);
 
         return "index";
+    }
+
+    @GetMapping("/userpage/{username}")
+    public String getUserpage(Model model, @PathVariable (value = "username") String username){
+        if (isSignedIn && username.equals(user.getName())) {
+            if(username.equals("admin")){
+                user = userRepository.getByName("admin");
+            }
+            UserAvatar userAvatar = userAvatarsRepository.getByUserId(user.getId());
+            List<UserRating> userRatingList = userRatingRepository.findAllByUserId(user.getId());
+            int ratingListSize = userRatingList.size();
+            model.addAttribute("rating", userRatingList);
+            model.addAttribute("ratingCount", ratingListSize);
+            model.addAttribute("user", user);
+            model.addAttribute("isSignedIn", isSignedIn);
+            model.addAttribute("username", username);
+            model.addAttribute("userAvatar", userAvatar);
+        }
+        else{
+            return "redirect:/signin";
+        }
+        if(username.equals("admin")){
+            return "admin";
+        }
+        return "userpage";
     }
 
     @GetMapping("/signin")
@@ -59,10 +102,6 @@ public class UserController {
             return "redirect:/";
         } else {
             isSignedIn = false;
-            for (ErrorMessage error : errors) {
-                model.addAttribute(error.getType().getTemplateValue(), error);
-                error.print();
-            }
             model.addAttribute("username", username);
         }
         return "sign-in";
@@ -88,7 +127,12 @@ public class UserController {
             user.setEmail(email);
             user.setPassword(password);
             user.setRole(Role.USER);
+            UserAvatarColorsDataset colorsDataset = new UserAvatarColorsDataset();
+            int size = colorsDataset.size;
+            int index = (int)Math.floor(Math.random()*(size+1));
+            UserAvatar avatar = adminService.createUserAvatar(user, colorsDataset.userColors.get(index), colorsDataset.userSecondaryColors.get(index));
             userRepository.save(user);
+            userAvatarsRepository.save(avatar);
             isSignedIn = true;
             return "redirect:/";
         } else {

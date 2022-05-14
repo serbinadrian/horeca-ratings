@@ -41,7 +41,7 @@ public class AuthenticationService {
             targetUser = userRepository.findByName(user.getName());
         }
 
-        if (!isEqualPasswords(targetUser.getPassword(), user.getPassword())) {
+        if (isNotEqualPasswords(targetUser.getPassword(), user.getPassword())) {
             errorMessages.add(message);
             return errorMessages;
         }
@@ -74,7 +74,7 @@ public class AuthenticationService {
             errorMessages.add(message);
         }
 
-        if(!isEqualPasswords(password, repeatPassword) || isEmpty(password) || isEmpty(repeatPassword)){
+        if(isNotEqualPasswords(password, repeatPassword) || isEmpty(password) || isEmpty(repeatPassword)){
             ErrorMessage message = new ErrorMessage("Пароли не совпадают или некорректны", ErrorType.INVALID_PASSWORD);
             errorMessages.add(message);
         }
@@ -97,8 +97,8 @@ public class AuthenticationService {
         return words.length == 2;
     }
 
-    private boolean isEqualPasswords(String password, String password2) {
-        return password.equals(password2);
+    private boolean isNotEqualPasswords(String password, String password2) {
+        return !password.equals(password2);
     }
 
     private boolean isUserExists(User user) {
