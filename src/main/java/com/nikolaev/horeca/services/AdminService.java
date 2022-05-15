@@ -122,22 +122,24 @@ public class AdminService {
             }
             progressIndicator = i;
         }
-        return progressIndicator != cafesListSize;
+        return false;
     }
 
     private boolean saveRating() {
 
-        List<String> cafesNames = extractCafesNames();
+        List<String> names = extractCafesNames();
 
-        for (String cafesName : cafesNames) {
-            createTestRating(cafesName);
+        for (String name : names) {
+            createTestRating(name);
+            calculateRatingOfOrganization(name);
+            calculateStarRatingOfOrganization(name);
         }
 
         return false;
     }
     //TodO
-    public void calculateRatingOfCafe(String cafeName){
-        Organization organization = organizationRepository.getByName(cafeName);
+    public void calculateRatingOfOrganization(String name){
+        Organization organization = organizationRepository.getByName(name);
         List<UserRating> ratings = userRatingRepository.findAllByOrganizationId(organization.getId());
         int ratingListSize = ratings.size();
         double sumRating = 0;
@@ -159,13 +161,13 @@ public class AdminService {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
-    public void calculateStarRatingOfOrganization(String cafeName){
-        Organization organization = organizationRepository.getByName(cafeName);
+    public void calculateStarRatingOfOrganization(String name){
+        Organization organization = organizationRepository.getByName(name);
         if (organization.getRating() == 0 && organization.getUserRatesCount() ==  0){
             List<UserRating> ratings = userRatingRepository.findAllByOrganizationId(organization.getId());
             if(!ratings.isEmpty()){
-                calculateRatingOfCafe(organization.getName());
-                organization = organizationRepository.getByName(cafeName);
+                calculateRatingOfOrganization(organization.getName());
+                organization = organizationRepository.getByName(name);
             }
         }
         double rating = organization.getRating();
@@ -215,6 +217,7 @@ public class AdminService {
         int minUsersCount = 3;
 
         int usersToProcess = randomInRage(minUsersCount, usersCount);
+        System.out.println("usersToProcess: " + usersToProcess);
 
         for (int i = 0; i < usersToProcess; i++) {
             int userIndex = randomInRage(0, usersCount);
@@ -225,9 +228,9 @@ public class AdminService {
             }
             usedUserIndexList.add(userIndex);
             int ratingIndex = randomInRage(0, ratingsCount);
-            if(usedRatingIndexList.contains(userIndex)){
-                while (usedRatingIndexList.contains(userIndex)) {
-                    ratingIndex = randomInRage(0, usersCount);
+            if(usedRatingIndexList.contains(ratingIndex)){
+                while (usedRatingIndexList.contains(ratingIndex)) {
+                    ratingIndex = randomInRage(0, ratingsCount);
                 }
             }
             usedRatingIndexList.add(ratingIndex);

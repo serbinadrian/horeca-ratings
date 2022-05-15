@@ -144,6 +144,7 @@ main .content {
 }
 
 .orgaizations-container {
+  overflow: auto;
   height: 75vh;
   width: 100%;
 }
@@ -215,7 +216,16 @@ main .content {
   flex-shrink: 0;
 }
 
-.social-link {
+.no-social-link path{
+  fill: var(--comment-background-color);
+}
+
+.no-social-link:hover path{
+  fill: var(--comment-background-color);
+}
+
+.social-link,
+.no-social-link{
   width: 30px;
   height: 30px;
   margin-right: 10px;
@@ -225,7 +235,8 @@ main .content {
   fill: var(--secondary-accent-color);
 }
 
-.social-link:last-child {
+.social-link:last-child,
+.no-social-link:last-child{
   margin-right: 55px;
 }
 

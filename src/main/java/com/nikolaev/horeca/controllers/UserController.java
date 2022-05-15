@@ -60,6 +60,29 @@ public class UserController {
         return "index";
     }
 
+    @GetMapping("/company/{companyId}")
+    public String getCompanyAbout(@PathVariable(value = "companyId") long companyId,
+                                  Model model){
+        Organization organization = organizationRepository.getById(companyId);
+        organization.setStarsMarkup();
+        model.addAttribute("organization", organization);
+        return "about";
+    }
+
+    @GetMapping("/user/{id}/rateCompany/{companyId}")
+    public String rateCompany(@PathVariable(value = "companyId") long companyId,
+                              @PathVariable(value = "id") long userId,
+                              Model model){
+        Organization organization = organizationRepository.getById(companyId);
+        organization.setStarsMarkup();
+        if (isSignedIn) {
+            model.addAttribute("user", user);
+        }
+        model.addAttribute("isSignedIn", isSignedIn);
+        model.addAttribute("organization", organization);
+        return "rate";
+    }
+
     @GetMapping("/userpage/{username}")
     public String getUserPage(Model model, @PathVariable (value = "username") String username){
         if (isSignedIn && username.equals(user.getName())) {
