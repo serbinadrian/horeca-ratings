@@ -3,6 +3,9 @@ package com.nikolaev.horeca.domains;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.List;
 
 @Entity
 @Table(name = "UserRating")
@@ -13,15 +16,29 @@ public class UserRating {
     private long id;
     private long userId;
     private long organizationId;
-    private int personnelRate;
-    private int tasteRate;
-    private int locationRate;
-    private int cleanRate;
-    private int moodRate;
-    private int serviceToPriceRate;
-    private int foodToPriceRate;
-    private String comment;
+    private int personnelRate = 0;
+    private int tasteRate = 0;
+    private int locationRate = 0;
+    private int cleanRate = 0;
+    private int moodRate = 0;
+    private int serviceToPriceRate = 0;
+    private int foodToPriceRate = 0;
+    private String comment = "";
+    private final int rateCount = 7;
 
+    public double getProcessedRating(){
+
+        double body = this.personnelRate + this.tasteRate + this.locationRate + this.cleanRate + this.moodRate + this.serviceToPriceRate + this.foodToPriceRate;
+        return round(body/this.rateCount, 2);
+    }
+    //todo to service
+    private double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(Double.toString(value));
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
     public long getId() {
         return id;
     }

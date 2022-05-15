@@ -46,7 +46,14 @@ public class UserController {
         if(!isAdmin){
             adminService.createAdmin();
         }
+
         List<Organization> organizations = organizationRepository.findAll();
+
+        for (Organization organization  : organizations){
+            organization.setStarsMarkup();
+        }
+
+
         model.addAttribute("isSignedIn", isSignedIn);
         model.addAttribute("organizations", organizations);
 
@@ -54,7 +61,7 @@ public class UserController {
     }
 
     @GetMapping("/userpage/{username}")
-    public String getUserpage(Model model, @PathVariable (value = "username") String username){
+    public String getUserPage(Model model, @PathVariable (value = "username") String username){
         if (isSignedIn && username.equals(user.getName())) {
             if(username.equals("admin")){
                 user = userRepository.getByName("admin");
@@ -127,10 +134,16 @@ public class UserController {
             user.setEmail(email);
             user.setPassword(password);
             user.setRole(Role.USER);
+            userRepository.save(user);
+            user = userRepository.findByName(username);
             UserAvatarColorsDataset colorsDataset = new UserAvatarColorsDataset();
             int size = colorsDataset.size;
             int index = (int)Math.floor(Math.random()*(size+1));
-            UserAvatar avatar = adminService.createUserAvatar(user, colorsDataset.userColors.get(index), colorsDataset.userSecondaryColors.get(index));
+
+            String primaryColor = colorsDataset.userColors.get(index);
+            String secondaryColor =  colorsDataset.userSecondaryColors.get(index);
+            System.out.println(index + " " + primaryColor + " " + secondaryColor);
+            UserAvatar avatar = adminService.createUserAvatar(user, primaryColor, secondaryColor);
             userRepository.save(user);
             userAvatarsRepository.save(avatar);
             isSignedIn = true;

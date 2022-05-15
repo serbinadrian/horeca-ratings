@@ -2,6 +2,8 @@ package com.nikolaev.horeca.domains;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Organizations")
@@ -22,12 +24,38 @@ public class Organization {
     private String fbLink;
     private String instLink;
 
+    private transient List<Integer> starsMarkup;
+
+
+    public Organization() {
+        starsMarkup = new ArrayList<>();
+    }
+
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public void setStarsMarkup(){
+        List<Integer> starMarkup = new ArrayList<>();
+        for (double i = 0; i < 5; i += 0.5){
+            int vari = 0;
+            if(i < starRating){
+                vari = 1;
+                starMarkup.add(vari);
+            } else {
+                starMarkup.add(vari);
+            }
+        }
+        System.out.println(starMarkup);
+        this.starsMarkup = starMarkup;
+    }
+
+    public List<Integer> getStarsMarkup() {
+        return starsMarkup;
     }
 
     public double getRating() {

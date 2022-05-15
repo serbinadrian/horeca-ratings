@@ -14,6 +14,8 @@ import com.nikolaev.horeca.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,10 +136,44 @@ public class AdminService {
         return false;
     }
     //TodO
-    private void processRating(String cafeName){}
-    public double calculateRatingOfCafe(String cafeName){return 2.1;}
-    public double calculateStarRatingOfCafe(String cafeName){return 2.1;}
-    private List<String> extractCafesNames(){
+    public void calculateRatingOfCafe(String cafeName){
+        Organization organization = organizationRepository.getByName(cafeName);
+        List<UserRating> ratings = userRatingRepository.findAllByOrganizationId(organization.getId());
+        int ratingListSize = ratings.size();
+        double sumRating = 0;
+        for (UserRating rating : ratings){
+            sumRating += rating.getProcessedRating();
+        }
+
+        double ratingOfOrganization = round(sumRating / ratingListSize, 2);
+        organization.setRating(ratingOfOrganization);
+        organization.setUserRatesCount(ratingListSize);
+        organizationRepository.save(organization);
+    }
+
+    //todo to service
+    private double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(Double.toString(value));
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+    public void calculateStarRatingOfOrganization(String cafeName){
+        Organization organization = organizationRepository.getByName(cafeName);
+        if (organization.getRating() == 0 && organization.getUserRatesCount() ==  0){
+            List<UserRating> ratings = userRatingRepository.findAllByOrganizationId(organization.getId());
+            if(!ratings.isEmpty()){
+                calculateRatingOfCafe(organization.getName());
+                organization = organizationRepository.getByName(cafeName);
+            }
+        }
+        double rating = organization.getRating();
+        double starRating = roundToStarRating(rating);
+        organization.setStarRating(starRating);
+        organizationRepository.save(organization);
+    }
+    public List<String> extractCafesNames(){
         List<String> cafesNames = new ArrayList<>();
         CafesDataset cafesDataset = new CafesDataset();
         int cafesListSize = cafesDataset.size;
@@ -145,6 +181,21 @@ public class AdminService {
             cafesNames.add(cafesDataset.organizations.get(i).getName());
         }
         return cafesNames;
+    }
+
+    public double roundToStarRating(double value){
+        double floor = Math.floor(value);
+        double ceil = Math.ceil(value);
+        double base = value - floor;
+        double remainder = base / 0.25;
+
+        if(remainder >= 1 && remainder < 3){
+            value = floor + 0.5;
+        }
+        if(remainder >= 3){
+            value = ceil;
+        }
+        return value;
     }
 
     private List<String> extractUSerNames(){
@@ -201,7 +252,7 @@ public class AdminService {
         return rating;
     }
 
-    private int randomInRage(int min, int max){
+    public int randomInRage(int min, int max){
         return (int) ((Math.random() * (max - min)) + min);
     }
 

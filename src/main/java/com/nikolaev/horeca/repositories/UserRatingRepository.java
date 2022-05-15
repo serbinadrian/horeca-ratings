@@ -8,4 +8,5 @@ import java.util.List;
 public interface UserRatingRepository extends JpaRepository<UserRating, Long> {
     boolean existsByComment(String comment);
     List<UserRating> findAllByUserId(long id);
+    List<UserRating> findAllByOrganizationId(long id);
 }

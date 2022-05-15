@@ -64,23 +64,36 @@
   <main>
     <div class="content">
       <div class="page-title">
-        Личный кабинет Администратора
+        Личный кабинет администратора
       </div>
       <div class="page-user-block">
-        <div class="user-image" style="background-color: #D95E5E; border-color: #540B0B; color: #540B0B">
-          QR
+        <div class="user-image" th:style=" 'background-color:'+${userAvatar.appliedSecondaryUserColor} +'; border-color: ' + ${userAvatar.appliedUserColor}">
+          <svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.7753 6.97186L10.9999 0L7.22448 6.97186L0 1.68529L2.98737 12.0603H19.0126L22 1.68529L14.7753 6.97186ZM2.98697 15.3H19.0122V13.3748H2.98697V15.3Z"
+                  th:attr="fill=${userAvatar.appliedUserColor}"></path>
+          </svg>
         </div>
         <div class="user-data">
           <div class="user-data-row">
             <div class="row-left-side">Nickname:</div>
-            <div class="row-right-side">Quentin Russel</div>
-          </div>
-          <div class="user-data-row">
-            <div class="row-left-side">Имя и фамилия:</div>
-            <div class="row-right-side">Имя фамилия</div>
+            <div class="row-right-side">
+              <span th:text="${user.name}"></span>
+            </div>
           </div>
         </div>
       </div>
+      <div class="admin-button">
+        <form action="/admin/wipedata" method="post" id="wipedata">
+          <input type="password" name="adminPassword">
+          <button type="button" onclick="document.getElementById('wipedata').submit()">wipedata</button>
+        </form>
+      </div>
+      <div class="admin-button">
+        <form action="/admin/fillDB" method="post" id="fillDatabase">
+          <button type="button" onclick="document.getElementById('fillDatabase').submit()">fillDB</button>
+        </form>
+      </div>
+
       <div class="page-content-title">
         Оставленные Вами комментарии:
       </div>

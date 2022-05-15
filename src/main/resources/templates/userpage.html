@@ -67,17 +67,21 @@
         Личный кабинет пользователя
       </div>
       <div class="page-user-block">
-        <div class="user-image" style="background-color: #D95E5E; border-color: #540B0B; color: #540B0B">
-          QR
+        <div class="user-image" th:style="'background-color:'+${userAvatar.appliedSecondaryUserColor} +'; border-color: ' + ${userAvatar.appliedUserColor} +'; color: ' +${userAvatar.appliedUserColor}">
+          <span th:text="${userAvatar.initials}"></span>
         </div>
         <div class="user-data">
           <div class="user-data-row">
             <div class="row-left-side">Nickname:</div>
-            <div class="row-right-side">Quentin Russel</div>
+            <div class="row-right-side">
+              <span th:text="${user.name}"></span>
+            </div>
           </div>
           <div class="user-data-row">
             <div class="row-left-side">Имя и фамилия:</div>
-            <div class="row-right-side">Имя фамилия</div>
+            <div class="row-right-side">
+              <span th:text="${user.fullName}"></span>
+            </div>
           </div>
         </div>
       </div>
