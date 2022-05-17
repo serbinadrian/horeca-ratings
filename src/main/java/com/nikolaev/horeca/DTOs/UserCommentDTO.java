@@ -6,6 +6,8 @@ import com.nikolaev.horeca.domains.UserAvatar;
 import com.nikolaev.horeca.domains.UserRating;
 
 public class UserCommentDTO {
+    long id;
+    long orgId;
     String initials;
     String appliedUserColor;
     String appliedSecondaryUserColor;
@@ -24,6 +26,8 @@ public class UserCommentDTO {
 
 
     public UserCommentDTO(Organization organization, UserRating userRating){
+        this.id = userRating.getId();
+        this.orgId = userRating.getOrganizationId();
         this.companyName = organization.getName();
         this.personnelRate = userRating.getPersonnelRate();
         this.tasteRate = userRating.getTasteRate();
@@ -35,6 +39,8 @@ public class UserCommentDTO {
         this.comment = userRating.getComment();
     }
     public UserCommentDTO(User user, UserAvatar userAvatar, UserRating userRating) {
+        this.id = userRating.getId();
+        this.orgId = userRating.getOrganizationId();
         this.initials = userAvatar.getInitials();
         this.appliedUserColor = userAvatar.getAppliedUserColor();
         this.appliedSecondaryUserColor = userAvatar.getAppliedSecondaryUserColor();
@@ -47,6 +53,22 @@ public class UserCommentDTO {
         this.serviceToPriceRate = userRating.getServiceToPriceRate();
         this.foodToPriceRate = userRating.getFoodToPriceRate();
         this.comment = userRating.getComment();
+    }
+
+    public long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(long orgId) {
+        this.orgId = orgId;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getComment() {

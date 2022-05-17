@@ -85,6 +85,7 @@ public class UserController {
     public String rateCompany(@PathVariable(value = "companyId") long companyId,
                               @PathVariable(value = "id") long userId,
                               Model model){
+        UserRating userRating = new UserRating();
         Organization organization = organizationRepository.getById(companyId);
         organization.setStarsMarkup();
         if (isSignedIn) {
@@ -92,7 +93,68 @@ public class UserController {
         }
         model.addAttribute("isSignedIn", isSignedIn);
         model.addAttribute("organization", organization);
+        model.addAttribute("rating", userRating);
         return "rate";
+    }
+
+    @PostMapping("/rate/organization/")
+    public String saveRating(@RequestParam(value = "userId")Long userId,
+                             @RequestParam(value = "organizationId")Long organizationId,
+                             @RequestParam(value = "personnel")Integer personnelRate,
+                             @RequestParam(value = "mood")Integer moodRate,
+                             @RequestParam(value = "taste")Integer tasteRate,
+                             @RequestParam(value = "serviceToPrice")Integer serviceToPriceRate,
+                             @RequestParam(value = "location")Integer locationRate,
+                             @RequestParam(value = "foodToPrice")Integer foodToPriceRate,
+                             @RequestParam(value = "clean")Integer cleanRate,
+                             @RequestParam(value = "comment")String comment,
+                             Model model){
+        User user1 = userRepository.getById(userId);
+
+        Organization organization = organizationRepository.getById(organizationId);
+        UserRating userRating = new UserRating();
+        userRating.setUserId(userId);
+        userRating.setOrganizationId(organizationId);
+        userRating.setPersonnelRate(personnelRate);
+        userRating.setMoodRate(moodRate);
+        userRating.setTasteRate(tasteRate);
+        userRating.setServiceToPriceRate(serviceToPriceRate);
+        userRating.setLocationRate(locationRate);
+        userRating.setFoodToPriceRate(foodToPriceRate);
+        userRating.setCleanRate(cleanRate);
+        userRating.setComment(comment);
+
+        userRatingRepository.save(userRating);
+
+        adminService.calculateRatingOfOrganization(organization.getName());
+        adminService.calculateStarRatingOfOrganization(organization.getName());
+
+        organization = organizationRepository.getById(organizationId);
+        //todo toService
+        organization.setStarsMarkup();
+
+        List<UserCommentDTO> commentDtos = new ArrayList<>();
+
+        List<UserRating> ratings = userRatingRepository.findAllByOrganizationId(organization.getId());
+
+        for (UserRating rating:ratings) {
+            UserCommentDTO userCommentDTO = new UserCommentDTO(userRepository.getById(rating.getUserId()),userAvatarsRepository.getByUserId(rating.getUserId()), rating);
+            commentDtos.add(userCommentDTO);
+        }
+        model.addAttribute("comments", commentDtos);
+        model.addAttribute("organization", organization);
+        //toService
+        return "about";
+    }
+
+    @GetMapping("/deleteRate/{id}/{orgId}")
+    public String deleteUserComment(@PathVariable(value = "id")long id,
+                                    @PathVariable(value = "orgId")long orgId){
+        userRatingRepository.deleteById(id);
+        Organization organization = organizationRepository.getById(orgId);
+        adminService.calculateRatingOfOrganization(organization.getName());
+        adminService.calculateStarRatingOfOrganization(organization.getName());
+        return "redirect:" + "/userpage/"+ user.getName();
     }
 
     @GetMapping("/userpage/{username}")
@@ -148,6 +210,9 @@ public class UserController {
         } else {
             isSignedIn = false;
             model.addAttribute("username", username);
+            for (ErrorMessage errorMessage: errors) {
+                model.addAttribute(errorMessage.getType().getTemplateValue(), errorMessage.getMessage());
+            }
         }
         return "sign-in";
     }

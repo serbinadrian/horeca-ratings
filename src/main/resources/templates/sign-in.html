@@ -52,7 +52,7 @@
         </div>
         <div class="auth-form-block">
           <form method="post" action="/login" id="login-form">
-            <div th:if="${invalid_authentication}" class="auth-form-item errored" th:attr="data-tooltip=${invalid_authentication.message}" data-flow="right">
+            <div th:if="${invalid_authentication}" class="auth-form-item errored" th:attr="data-tooltip=${invalid_authentication}" data-flow="right">
               <label for="email-input">
                 <div class="label-name">Логин</div>
                 <span class="input-holder">
@@ -71,7 +71,7 @@
                 </span>
               </label>
             </div>
-            <div th:if="${invalid_authentication}" class="auth-form-item errored" th:attr="data-tooltip=${invalid_authentication.message}" data-flow="right">
+            <div th:if="${invalid_authentication}" class="auth-form-item errored" th:attr="data-tooltip=${invalid_authentication}" data-flow="right">
               <label for="password-input">
                 <div class="label-name">Пароль</div>
                 <span class="input-holder">

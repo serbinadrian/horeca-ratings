@@ -16,16 +16,22 @@ window.onload = () => {
   for (var i = 0; i < starsBlocks.length; i++) {
     let mapState = 0;
     let currentStars = starsBlocks[i].getElementsByClassName('input-star');
-    for (var j = 0; j < currentStars.length; j++) {
+    let currentInput = starsBlocks[i].getElementsByTagName("input")[0];
+    let currentValue = currentInput.value;
+    makeActive(currentStars, currentValue);
+    mapState = currentValue;
+    for (let j = 0; j < currentStars.length; j++) {
       let index = j;
       currentStars[j].addEventListener('click', (e) => {
         e.stopPropagation();
         clearActive(currentStars);
         makeActive(currentStars, index + 1);
+        currentInput.value = index+1;
         mapState = index+1;
       });
       currentStars[j].addEventListener('mouseover', (e) => {
         e.stopPropagation();
+        clearActive(currentStars);
         makeActive(currentStars, index + 1);
       });
       currentStars[j].addEventListener('mouseout', (e) => {
