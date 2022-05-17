@@ -65,7 +65,16 @@ main{
   flex-shrink: 0;
 }
 
-.social-link {
+.no-social-link path{
+  fill: var(--comment-background-color);
+}
+
+.no-social-link:hover path{
+  fill: var(--comment-background-color);
+}
+
+.social-link,
+.no-social-link{
   width: 30px;
   height: 30px;
   margin-right: 10px;
@@ -151,6 +160,7 @@ main{
 }
 
 .comments-wrapper{
+  overflow: auto;
   height: 430px;
   width: 100%;
   box-sizing: border-box;
@@ -192,6 +202,46 @@ main{
   width: 100%;
   display: block !important;
 }
+
+/*rating metrics*/
+.metrics-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  flex-wrap: nowrap;
+  padding: 5px;
+}
+
+.metric{
+  margin: 0 3px;
+  transition: .3s;
+}
+
+.metric:hover{
+  transition: .3s;
+  margin: 0 10px;
+  transform: scale(1.1);
+}
+
+.metric svg{
+  width: 100%;
+  height: 100%;
+}
+
+.metric-icon
+{
+  margin-bottom: 7px;
+}
+
+.metric-icon,
+.metric-star-value{
+  text-align: center;
+  height: 30px;
+  width: 30px;
+}
+/*rating metrics*/
+
 
 .user-data {
   margin-bottom: 10px;

@@ -1,5 +1,6 @@
 package com.nikolaev.horeca.controllers;
 
+import com.nikolaev.horeca.DTOs.UserCommentDTO;
 import com.nikolaev.horeca.datasets.UserAvatarColorsDataset;
 import com.nikolaev.horeca.domains.*;
 import com.nikolaev.horeca.misc.Role;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -65,6 +67,16 @@ public class UserController {
                                   Model model){
         Organization organization = organizationRepository.getById(companyId);
         organization.setStarsMarkup();
+
+        List<UserCommentDTO> commentDtos = new ArrayList<>();
+
+        List<UserRating> ratings = userRatingRepository.findAllByOrganizationId(organization.getId());
+
+        for (UserRating rating:ratings) {
+            UserCommentDTO userCommentDTO = new UserCommentDTO(userRepository.getById(rating.getUserId()),userAvatarsRepository.getByUserId(rating.getUserId()), rating);
+            commentDtos.add(userCommentDTO);
+        }
+        model.addAttribute("comments", commentDtos);
         model.addAttribute("organization", organization);
         return "about";
     }
@@ -89,15 +101,18 @@ public class UserController {
             if(username.equals("admin")){
                 user = userRepository.getByName("admin");
             }
-            UserAvatar userAvatar = userAvatarsRepository.getByUserId(user.getId());
             List<UserRating> userRatingList = userRatingRepository.findAllByUserId(user.getId());
-            int ratingListSize = userRatingList.size();
-            model.addAttribute("rating", userRatingList);
-            model.addAttribute("ratingCount", ratingListSize);
+            List<UserCommentDTO> userComments = new ArrayList<>();
+            for (UserRating rating : userRatingList){
+                Organization organization = organizationRepository.getById(rating.getOrganizationId());
+                UserCommentDTO userCommentDTO = new UserCommentDTO(organization, rating);
+                userComments.add(userCommentDTO);
+            }
+            UserAvatar userAvatar = userAvatarsRepository.getByUserId(user.getId());
+            model.addAttribute("userAvatar", userAvatar);
+            model.addAttribute("comments", userComments);
             model.addAttribute("user", user);
             model.addAttribute("isSignedIn", isSignedIn);
-            model.addAttribute("username", username);
-            model.addAttribute("userAvatar", userAvatar);
         }
         else{
             return "redirect:/signin";
