@@ -365,9 +365,15 @@ main .content {
   color: var(--secondary-accent-color);
 }
 
-.page-number.no-click {
+.page-number.no-click,
+.arrow.no-click{
   pointer-events: none;
+  color: red;
 }
+.arrow.no-click path{
+  fill: red;
+}
+
 
 .page-number.active::after {
   border-bottom: 4px solid var(--accent-color);

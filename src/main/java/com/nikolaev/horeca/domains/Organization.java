@@ -50,7 +50,6 @@ public class Organization {
                 starMarkup.add(vari);
             }
         }
-        System.out.println(starMarkup);
         this.starsMarkup = starMarkup;
     }
 

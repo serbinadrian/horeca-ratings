@@ -29,7 +29,7 @@
                 </svg>
             </div>
             <div class="site-name">
-                <a href="/">HORECA</a>
+                <a href="/home/1">HORECA</a>
             </div>
         </div>
         <div th:if="${isSignedIn}" class="user-block" data-tooltip="Личный кабинет" data-flow="bottom">
@@ -117,7 +117,7 @@
         <div class="main-block">
             <div class="orgaizations-container">
                 <!--single-company-->
-                <div class="company-info" th:each="organization : ${organizations}">
+                <div class="company-info" th:each="organization : ${elements}">
                     <div class="company-name-block">
                         <div class="company-name">
                             <span th:text="${organization.name}"></span>
@@ -218,7 +218,9 @@
                         </div>
                     </div>
                     <div class="about-buttons">
-                        <a th:if="${isSignedIn}" th:href="@{/user/{id}/rateCompany/{companyId}(id = ${user.id}, companyId = ${organization.id})}" target="modal-window">
+                        <a th:if="${isSignedIn}"
+                           th:href="@{/user/{id}/rateCompany/{companyId}(id = ${user.id}, companyId = ${organization.id})}"
+                           target="modal-window">
                             <div class="rate-button about-button">
                                 <div class="rate-button-text">
                                     Оценить
@@ -266,34 +268,46 @@
 
             </div>
             <div class="pages-navigation-container">
-                <form action="">
-                    <div class="page-number-navigation">
-                        <div class="arrow previous-page" data-tooltip="Предыдущая страница" data-flow="left">
+                <div class="page-number-navigation">
+
+                    <div th:each="navlabel, state : ${labels}" class="page-number-cell">
+                        <a th:if="${state.index == 0}" th:href="@{/home/{page}(page = ${navlabel.label})}" class="arrow previous-page" th:classappend="${navlabel.isAccessible} ? 'accessible' : 'no-click'">
                             <svg width="9" height="16" viewBox="0 0 9 16" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path
                                         d="M0.292893 7.29289C-0.097631 7.68342 -0.097631 8.31658 0.292893 8.70711L6.65685 15.0711C7.04738 15.4616 7.68054 15.4616 8.07107 15.0711C8.46159 14.6805 8.46159 14.0474 8.07107 13.6569L2.41421 8L8.07107 2.34315C8.46159 1.95262 8.46159 1.31946 8.07107 0.928932C7.68054 0.538408 7.04738 0.538408 6.65685 0.928932L0.292893 7.29289ZM2 7H1L1 9H2L2 7Z"
                                         fill="white"/>
                             </svg>
-                        </div>
-                        <div class="page-numbers">
-                            <div class="page-number active">1</div>
-                            <div class="page-number">2</div>
-                            <div class="page-number">3</div>
-                            <div class="page-number no-click">...</div>
-                            <div class="page-number">5</div>
-                        </div>
-                        <div class="arrow next-page" data-tooltip="Следующая страница" data-flow="right">
+                        </a>
+                        <a th:if="${state.index == 1}" th:href="@{/home/{page}(page = ${navlabel.label})}" class="arrow previous-page" th:classappend="${navlabel.isAccessible} ? 'accessible' : 'no-click'">
+                            <svg width="9" height="16" viewBox="0 0 9 16" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                        d="M0.292893 7.29289C-0.097631 7.68342 -0.097631 8.31658 0.292893 8.70711L6.65685 15.0711C7.04738 15.4616 7.68054 15.4616 8.07107 15.0711C8.46159 14.6805 8.46159 14.0474 8.07107 13.6569L2.41421 8L8.07107 2.34315C8.46159 1.95262 8.46159 1.31946 8.07107 0.928932C7.68054 0.538408 7.04738 0.538408 6.65685 0.928932L0.292893 7.29289ZM2 7H1L1 9H2L2 7Z"
+                                        fill="white"/>
+                            </svg>
+                        </a>
+                        <a th:if="${state.index == 2}" th:href="@{/home/{page}(page = ${navlabel.label})}" class="page-number active no-click">
+                            <span th:text="${navlabel.label}"></span>
+                        </a>
+                        <a th:if="${state.index == state.size - 2}" th:href="@{/home/{page}(page = ${navlabel.label})}" class="arrow next-page" th:classappend="${navlabel.isAccessible} ? 'accessible' : 'no-click'">
                             <svg width="9" height="16" viewBox="0 0 9 16" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path
                                         d="M8.70711 8.70711C9.09763 8.31658 9.09763 7.68342 8.70711 7.29289L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L6.58579 8L0.928932 13.6569C0.538408 14.0474 0.538408 14.6805 0.928932 15.0711C1.31946 15.4616 1.95262 15.4616 2.34315 15.0711L8.70711 8.70711ZM7 9H8V7H7V9Z"
                                         fill="white"/>
                             </svg>
-                        </div>
+                        </a>
+                        <a th:if="${state.index == state.size - 1}" th:href="@{/home/{page}(page = ${navlabel.label})}" class="arrow next-page" th:classappend="${navlabel.isAccessible} ? 'accessible' : 'no-click'">
+                            <svg width="9" height="16" viewBox="0 0 9 16" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                        d="M8.70711 8.70711C9.09763 8.31658 9.09763 7.68342 8.70711 7.29289L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L6.58579 8L0.928932 13.6569C0.538408 14.0474 0.538408 14.6805 0.928932 15.0711C1.31946 15.4616 1.95262 15.4616 2.34315 15.0711L8.70711 8.70711ZM7 9H8V7H7V9Z"
+                                        fill="white"/>
+                            </svg>
+                        </a>
                     </div>
-                </form>
-
+                </div>
             </div>
         </div>
     </div>
@@ -314,7 +328,7 @@
     </div>
 </div>
 
-<script th:if="${organizations}" src="../static/script/script.js"></script>
+<script th:if="${elements}" src="../static/script/script.js"></script>
 </body>
 
 </html>

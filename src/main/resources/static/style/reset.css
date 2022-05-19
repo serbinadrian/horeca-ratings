@@ -106,3 +106,9 @@ body{
 .close:hover path{
   fill: var(--secondary-accent-color);
 }
+
+.page-number a{
+  display: block;
+  width: 100%;
+  height: 100%;
+}

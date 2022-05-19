@@ -10,6 +10,7 @@ import com.nikolaev.horeca.repositories.UserRatingRepository;
 import com.nikolaev.horeca.repositories.UserRepository;
 import com.nikolaev.horeca.services.AdminService;
 import com.nikolaev.horeca.services.AuthenticationService;
+import com.nikolaev.horeca.services.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,11 +37,19 @@ public class UserController {
     UserRatingRepository userRatingRepository;
     @Autowired
     OrganizationRepository organizationRepository;
+    @Autowired
+    PageService<Organization> organizationPageService;
     User user = new User();
     boolean isSignedIn = false;
+    final int itemsPerPage = 5;
 
     @GetMapping("/")
-    public String getHome(Model model) {
+    public String getHomepage(){
+        return "redirect:/home/1";
+    }
+
+    @GetMapping("/home/{page}")
+    public String getHome(@PathVariable(value = "page")int page, Model model) {
         if (isSignedIn) {
             model.addAttribute("user", user);
         }
@@ -55,9 +64,12 @@ public class UserController {
             organization.setStarsMarkup();
         }
 
+        organizationPageService.construct(organizations, itemsPerPage);
+
 
         model.addAttribute("isSignedIn", isSignedIn);
-        model.addAttribute("organizations", organizations);
+        model.addAttribute("elements", organizationPageService.getPage(page).getElements());
+        model.addAttribute("labels", organizationPageService.getPage(page).getLabels());
 
         return "index";
     }
