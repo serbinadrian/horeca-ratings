@@ -11,7 +11,9 @@ import com.nikolaev.horeca.repositories.UserRepository;
 import com.nikolaev.horeca.services.AdminService;
 import com.nikolaev.horeca.services.AuthenticationService;
 import com.nikolaev.horeca.services.PageService;
+import com.nikolaev.horeca.services.SearchAndFilterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,17 +41,59 @@ public class UserController {
     OrganizationRepository organizationRepository;
     @Autowired
     PageService<Organization> organizationPageService;
+    @Autowired
+    PageService<UserCommentDTO> userCommentDTOsPageService;
+    @Autowired
+    PageService<UserCommentDTO> ownUserCommentDTOsPageService;
+    @Autowired
+    SearchAndFilterService searchAndFilterService;
     User user = new User();
     boolean isSignedIn = false;
-    final int itemsPerPage = 5;
+    final int organizatinsPerPage = 5;
+    final int commentsPerPage = 6;
+
 
     @GetMapping("/")
     public String getHomepage(){
         return "redirect:/home/1";
     }
 
+//    @GetMapping("/home/{page}")
+//    public String getHome(@PathVariable(value = "page")int page, Model model) {
+//        if (isSignedIn) {
+//            model.addAttribute("user", user);
+//        }
+//        boolean isAdmin = userRepository.existsByName("admin");
+//        if(!isAdmin){
+//            adminService.createAdmin();
+//        }
+//
+//        List<Organization> organizations = organizationRepository.findAll(Sort.by(Sort.Direction.DESC, "rating"));
+//
+//        for (Organization organization  : organizations){
+//            organization.setStarsMarkup();
+//        }
+//
+//        organizationPageService.construct(organizations, organizatinsPerPage);
+//
+//        Page<Organization> currentPage = organizationPageService.getPage(page);
+//
+//        model.addAttribute("isSignedIn", isSignedIn);
+//        model.addAttribute("elements", currentPage.getElements());
+//        model.addAttribute("labels", currentPage.getLabels());
+//
+//
+//        return "index";
+//    }
+
     @GetMapping("/home/{page}")
-    public String getHome(@PathVariable(value = "page")int page, Model model) {
+    public String getHomeFiltered(@PathVariable(value = "page")int page,
+                                  @RequestParam(value = "search", required = false)String search,
+                                  @RequestParam(value = "sort", required = false)String sort,
+                                  @RequestParam(value = "filter", required = false) List<String> filter,
+                                  Model model) {
+
+
         if (isSignedIn) {
             model.addAttribute("user", user);
         }
@@ -58,24 +102,31 @@ public class UserController {
             adminService.createAdmin();
         }
 
-        List<Organization> organizations = organizationRepository.findAll();
+        searchAndFilterService.insertParams(search, sort, filter);
+        searchAndFilterService.build();
+
+        List<Organization> organizations = searchAndFilterService.getData();
 
         for (Organization organization  : organizations){
             organization.setStarsMarkup();
         }
 
-        organizationPageService.construct(organizations, itemsPerPage);
-
+        organizationPageService.construct(organizations, organizatinsPerPage);
+        Page<Organization> currentPage = organizationPageService.getPage(page);
 
         model.addAttribute("isSignedIn", isSignedIn);
-        model.addAttribute("elements", organizationPageService.getPage(page).getElements());
-        model.addAttribute("labels", organizationPageService.getPage(page).getLabels());
+        model.addAttribute("elements", currentPage.getElements());
+        model.addAttribute("labels", currentPage.getLabels());
+        model.addAttribute("search", search);
+        model.addAttribute("sort", searchAndFilterService.getSort());
+        model.addAttribute("filters", searchAndFilterService.getFilters());
 
         return "index";
     }
 
-    @GetMapping("/company/{companyId}")
+    @GetMapping("/company/{companyId}/page/{page}")
     public String getCompanyAbout(@PathVariable(value = "companyId") long companyId,
+                                  @PathVariable(value = "page") int page,
                                   Model model){
         Organization organization = organizationRepository.getById(companyId);
         organization.setStarsMarkup();
@@ -88,7 +139,12 @@ public class UserController {
             UserCommentDTO userCommentDTO = new UserCommentDTO(userRepository.getById(rating.getUserId()),userAvatarsRepository.getByUserId(rating.getUserId()), rating);
             commentDtos.add(userCommentDTO);
         }
-        model.addAttribute("comments", commentDtos);
+
+        userCommentDTOsPageService.construct(commentDtos, commentsPerPage);
+        Page<UserCommentDTO> currentPage = userCommentDTOsPageService.getPage(page);
+
+        model.addAttribute("comments", currentPage.getElements());
+        model.addAttribute("labels", currentPage.getLabels());
         model.addAttribute("organization", organization);
         return "about";
     }
@@ -169,8 +225,8 @@ public class UserController {
         return "redirect:" + "/userpage/"+ user.getName();
     }
 
-    @GetMapping("/userpage/{username}")
-    public String getUserPage(Model model, @PathVariable (value = "username") String username){
+    @GetMapping("/userpage/{username}/{page}")
+    public String getUserPage(Model model, @PathVariable (value = "username") String username, @PathVariable (value = "page") int page){
         if (isSignedIn && username.equals(user.getName())) {
             if(username.equals("admin")){
                 user = userRepository.getByName("admin");
@@ -182,9 +238,12 @@ public class UserController {
                 UserCommentDTO userCommentDTO = new UserCommentDTO(organization, rating);
                 userComments.add(userCommentDTO);
             }
+            ownUserCommentDTOsPageService.construct(userComments, commentsPerPage);
+            Page<UserCommentDTO> ownCommentsPage = ownUserCommentDTOsPageService.getPage(page);
             UserAvatar userAvatar = userAvatarsRepository.getByUserId(user.getId());
             model.addAttribute("userAvatar", userAvatar);
-            model.addAttribute("comments", userComments);
+            model.addAttribute("comments", ownCommentsPage.getElements());
+            model.addAttribute("labels", ownCommentsPage.getLabels());
             model.addAttribute("user", user);
             model.addAttribute("isSignedIn", isSignedIn);
         }

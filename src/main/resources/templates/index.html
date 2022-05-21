@@ -29,11 +29,11 @@
                 </svg>
             </div>
             <div class="site-name">
-                <a href="/home/1">HORECA</a>
+                <a href="/">HORECA</a>
             </div>
         </div>
         <div th:if="${isSignedIn}" class="user-block" data-tooltip="Личный кабинет" data-flow="bottom">
-            <a th:href="@{/userpage/{username}(username=${user.name})}">
+            <a th:href="@{/userpage/{username}/1(username=${user.name})}">
                 <div class="user-block">
                     <div class="username" title="username">
                         <span th:text="${user.name}">username</span>
@@ -70,43 +70,86 @@
 <main id="main">
     <div class="content">
         <div class="filters-block">
-            <form action="">
+            <form th:action="@{/home/{page}/filtered(page = ${labels[2].label})}">
                 <div class="search-block">
-                    <input type="search" placeholder="Поиск">
+                    <input th:if="${defaultSearch}" type="search" placeholder="Поиск" name="search">
+                    <input th:unless="${defaultSearch}" type="search" placeholder="Поиск" name="search" th:value="${search}">
                 </div>
                 <div class="block-name">
                     <div class="block-name-title">
                         Фильтры
                     </div>
                     <div class="reset-filters">
-                        <a href="index.html" data-tooltip="Сбросить все фильтры" data-flow="right">
+                        <a href="/" data-tooltip="Сбросить все фильтры" data-flow="right">
                             сбросить все
                         </a>
                     </div>
                 </div>
-                <div class="radio-block sort-by">
-                    <div class="option">
-                        <input class="radiobtn" id="first-btn-1" type="radio" name="radiobtn" required
-                               checked="checked"/>
-                        <label for="first-btn-1">Рейтинг (сервис)</label>
+                <div>
+                    <div class="radio-block closed" id="filter-date">
+                        <div class="radio-block-title">
+                            <div class="radio-block-switch">
+                                <svg width="24" height="14" viewBox="0 0 24 14" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                            d="M10.9393 13.0607C11.5251 13.6464 12.4749 13.6464 13.0607 13.0607L22.6066 3.51472C23.1924 2.92893 23.1924 1.97919 22.6066 1.3934C22.0208 0.807611 21.0711 0.807611 20.4853 1.3934L12 9.87868L3.51472 1.3934C2.92893 0.807611 1.97919 0.807611 1.3934 1.3934C0.807611 1.97919 0.807611 2.92893 1.3934 3.51472L10.9393 13.0607ZM10.5 11V12H13.5V11H10.5Z"
+                                            fill="white"/>
+                                </svg>
+                            </div>
+                            <div class="rb-name">
+                                Сортировка
+                            </div>
+                        </div>
+                        <div class="options">
+                            <div class="option">
+                                <input class="radiobtn" id="second-btn-1" type="radio" name="sortRateDesc" th:checked="${sort[0] == 1}"/>
+                                <label for="second-btn-1">По убыванию рейтинга</label>
+                            </div>
+                            <div class="option">
+                                <input class="radiobtn" id="second-btn-2" type="radio" name="sortRateAsc" th:checked="${sort[1] == 1}"/>
+                                <label for="second-btn-2">По возрастанию рейтинга</label>
+                            </div>
+                            <div class="option">
+                                <input class="radiobtn" id="second-btn-3" type="radio" name="sortAlphabetDesc" th:checked="${sort[2] == 1}"/>
+                                <label for="second-btn-3">По алафиту</label>
+                            </div>
+                            <div class="option">
+                                <input class="radiobtn" id="second-btn-4" type="radio" name="sortAlphabetAsc" th:checked="${sort[3] == 1}"/>
+                                <label for="second-btn-4">Против алафита</label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="option">
-                        <input class="radiobtn" id="first-btn-2" type="radio" name="radiobtn" required/>
-                        <label for="first-btn-2">По алфавиту</label>
-                    </div>
-                </div>
-                <div class="radio-block socials">
-                    <div class="option">
-                        <input class="radiobtn" id="second-btn-1" type="checkbox" name="radiobtn-2" required/>
-                        <label for="second-btn-1">Есть аккаунт в Вконтакте</label>
-                    </div>
-                    <div class="option">
-                        <input class="radiobtn" id="second-btn-2" type="checkbox" name="radiobtn-2" required/>
-                        <label for="second-btn-2">Есть аккаунт в Facebook</label>
-                    </div>
-                    <div class="option">
-                        <input class="radiobtn" id="second-btn-3" type="checkbox" name="radiobtn-2" required/>
-                        <label for="second-btn-3">Есть аккаунт в Instagram</label>
+                    <div class="radio-block closed" id="filter-genres">
+                        <div class="radio-block-title">
+                            <div class="radio-block-switch">
+                                <svg width="24" height="14" viewBox="0 0 24 14" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                            d="M10.9393 13.0607C11.5251 13.6464 12.4749 13.6464 13.0607 13.0607L22.6066 3.51472C23.1924 2.92893 23.1924 1.97919 22.6066 1.3934C22.0208 0.807611 21.0711 0.807611 20.4853 1.3934L12 9.87868L3.51472 1.3934C2.92893 0.807611 1.97919 0.807611 1.3934 1.3934C0.807611 1.97919 0.807611 2.92893 1.3934 3.51472L10.9393 13.0607ZM10.5 11V12H13.5V11H10.5Z"
+                                            fill="white"/>
+                                </svg>
+                            </div>
+                            <div class="rb-name">
+                                Фильтрация
+                            </div>
+                        </div>
+                        <div class="options">
+                            <div class="option">
+                                <input class="radiobtn" id="first-btn-1" type="checkbox" name="filter"
+                                       th:checked="${filters[0] == 1}"/>
+                                <label for="first-btn-1">Есть instagram</label>
+                            </div>
+                            <div class="option">
+                                <input class="radiobtn" id="first-btn-2" type="checkbox" name="filter"
+                                       th:checked="${filters[1] == 1}"/>
+                                <label for="first-btn-2">Есть facebook</label>
+                            </div>
+                            <div class="option">
+                                <input class="radiobtn" id="first-btn-3" type="checkbox" name="filter"
+                                       th:checked="${filters[2] == 1}"/>
+                                <label for="first-btn-3">Есть вконтакте</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <button type="submit">
@@ -234,13 +277,13 @@
                                 </div>
                             </div>
                         </a>
-                        <a th:href="@{/company/{companyId}(companyId = ${organization.id})}" target="modal-window">
+                        <a th:href="@{/company/{companyId}/page/1(companyId = ${organization.id})}"
+                           target="modal-window">
                             <div class="read-more-button about-button">
                                 <div class="read-more-button-text">
                                     Подробнее
                                 </div>
                                 <div class="read-more-button-icon">
-
                                     <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <g clip-path="url(#clip0_49_893)">
@@ -259,19 +302,34 @@
                                             </clipPath>
                                         </defs>
                                     </svg>
-
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
-
             </div>
             <div class="pages-navigation-container">
                 <div class="page-number-navigation">
 
                     <div th:each="navlabel, state : ${labels}" class="page-number-cell">
-                        <a th:if="${state.index == 0}" th:href="@{/home/{page}(page = ${navlabel.label})}" class="arrow previous-page" th:classappend="${navlabel.isAccessible} ? 'accessible' : 'no-click'">
+                        <a class="arrow previous-page"
+                           th:if="${state.index == 0}"
+                           th:href="@{/home/{page}(page = ${navlabel.label})}"
+                           th:classappend="${navlabel.isAccessible} ? 'accessible' : 'no-click'"
+                           th:attr="data-tooltip=${navlabel.isAccessible} ? ${'В начало'} : 'Вы на первой странице', data-flow='top'">
+                            <svg width="15" height="16" viewBox="0 0 15 16" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.292824 7.29306C-0.0976619 7.68362 -0.0976002 8.31679 0.292962 8.70727L6.65754 15.0706C7.04811 15.4611 7.68127 15.461 8.07176 15.0705C8.46224 14.6799 8.46218 14.0467 8.07162 13.6563L2.41421 7.99996L8.07052 2.34255C8.461 1.95199 8.46094 1.31883 8.07038 0.92834C7.67982 0.537854 7.04665 0.537916 6.65616 0.928478L0.292824 7.29306ZM1.9999 7L0.999903 7.0001L1.0001 9.0001L2.0001 9L1.9999 7Z"
+                                      fill="white"/>
+                                <path d="M6.29282 7.29306C5.90234 7.68362 5.9024 8.31679 6.29296 8.70727L12.6575 15.0706C13.0481 15.4611 13.6813 15.461 14.0718 15.0705C14.4622 14.6799 14.4622 14.0467 14.0716 13.6563L8.41421 7.99996L14.0705 2.34255C14.461 1.95199 14.4609 1.31883 14.0704 0.92834C13.6798 0.537854 13.0467 0.537916 12.6562 0.928478L6.29282 7.29306ZM7.9999 7L6.9999 7.0001L7.0001 9.0001L8.0001 9L7.9999 7Z"
+                                      fill="white"/>
+                            </svg>
+                        </a>
+                        <a class="arrow previous-page"
+                           th:if="${state.index == 1}"
+                           th:href="@{/home/{page}(page = ${navlabel.label})}"
+                           th:classappend="${navlabel.isAccessible} ? 'accessible' : 'no-click'"
+                           th:attr="data-tooltip=${navlabel.isAccessible} ? ${'Страница' + navlabel.label} : 'Вы на первой странице', data-flow='top'">
                             <svg width="9" height="16" viewBox="0 0 9 16" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -279,18 +337,17 @@
                                         fill="white"/>
                             </svg>
                         </a>
-                        <a th:if="${state.index == 1}" th:href="@{/home/{page}(page = ${navlabel.label})}" class="arrow previous-page" th:classappend="${navlabel.isAccessible} ? 'accessible' : 'no-click'">
-                            <svg width="9" height="16" viewBox="0 0 9 16" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                        d="M0.292893 7.29289C-0.097631 7.68342 -0.097631 8.31658 0.292893 8.70711L6.65685 15.0711C7.04738 15.4616 7.68054 15.4616 8.07107 15.0711C8.46159 14.6805 8.46159 14.0474 8.07107 13.6569L2.41421 8L8.07107 2.34315C8.46159 1.95262 8.46159 1.31946 8.07107 0.928932C7.68054 0.538408 7.04738 0.538408 6.65685 0.928932L0.292893 7.29289ZM2 7H1L1 9H2L2 7Z"
-                                        fill="white"/>
-                            </svg>
-                        </a>
-                        <a th:if="${state.index == 2}" th:href="@{/home/{page}(page = ${navlabel.label})}" class="page-number active no-click">
+                        <a class="page-number active no-click"
+                           th:if="${state.index == 2}"
+                           th:href="@{/home/{page}(page = ${navlabel.label})}"
+                           th:attr="data-tooltip=${'Страница' + (navlabel.label)}, data-flow='bottom'">
                             <span th:text="${navlabel.label}"></span>
                         </a>
-                        <a th:if="${state.index == state.size - 2}" th:href="@{/home/{page}(page = ${navlabel.label})}" class="arrow next-page" th:classappend="${navlabel.isAccessible} ? 'accessible' : 'no-click'">
+                        <a class="arrow next-page"
+                           th:if="${state.index == state.size - 2}"
+                           th:href="@{/home/{page}(page = ${navlabel.label})}"
+                           th:classappend="${navlabel.isAccessible} ? 'accessible' : 'no-click'"
+                           th:attr="data-tooltip=${navlabel.isAccessible} ? ${'Страница' + navlabel.label} : 'Вы на последней странице', data-flow='top'">
                             <svg width="9" height="16" viewBox="0 0 9 16" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -298,12 +355,17 @@
                                         fill="white"/>
                             </svg>
                         </a>
-                        <a th:if="${state.index == state.size - 1}" th:href="@{/home/{page}(page = ${navlabel.label})}" class="arrow next-page" th:classappend="${navlabel.isAccessible} ? 'accessible' : 'no-click'">
-                            <svg width="9" height="16" viewBox="0 0 9 16" fill="none"
+                        <a class="arrow next-page"
+                           th:if="${state.index == state.size - 1}"
+                           th:href="@{/home/{page}(page = ${navlabel.label})}"
+                           th:classappend="${navlabel.isAccessible} ? 'accessible' : 'no-click'"
+                           th:attr="data-tooltip=${navlabel.isAccessible} ? ${'В конец'} : 'Вы на последней странице', data-flow='top'">
+                            <svg width="15" height="16" viewBox="0 0 15 16" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                        d="M8.70711 8.70711C9.09763 8.31658 9.09763 7.68342 8.70711 7.29289L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L6.58579 8L0.928932 13.6569C0.538408 14.0474 0.538408 14.6805 0.928932 15.0711C1.31946 15.4616 1.95262 15.4616 2.34315 15.0711L8.70711 8.70711ZM7 9H8V7H7V9Z"
-                                        fill="white"/>
+                                <path d="M14.7071 8.70711C15.0976 8.31658 15.0976 7.68342 14.7071 7.29289L8.34315 0.928932C7.95262 0.538408 7.31946 0.538408 6.92893 0.928932C6.53841 1.31946 6.53841 1.95262 6.92893 2.34315L12.5858 8L6.92893 13.6569C6.53841 14.0474 6.53841 14.6805 6.92893 15.0711C7.31946 15.4616 7.95262 15.4616 8.34315 15.0711L14.7071 8.70711ZM13 9H14V7H13V9Z"
+                                      fill="white"/>
+                                <path d="M8.70711 8.70711C9.09763 8.31658 9.09763 7.68342 8.70711 7.29289L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L6.58579 8L0.928932 13.6569C0.538408 14.0474 0.538408 14.6805 0.928932 15.0711C1.31946 15.4616 1.95262 15.4616 2.34315 15.0711L8.70711 8.70711ZM7 9H8V7H7V9Z"
+                                      fill="white"/>
                             </svg>
                         </a>
                     </div>
@@ -321,14 +383,13 @@
         </div>
         <div class="close-icon">
             <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                        d="M15 30C11.0217 30 7.20653 28.4197 4.39335 25.6066C1.58029 22.7936 0 18.9781 0 15C0 11.0219 1.58029 7.20653 4.39335 4.39335C7.2064 1.58029 11.0219 0 15 0C18.9781 0 22.7935 1.58029 25.6066 4.39335C28.4197 7.2064 30 11.0219 30 15C29.9955 18.977 28.4137 22.7896 25.6016 25.6015C22.7896 28.4135 18.9769 29.9954 15.0001 29.9999L15 30ZM15 2.99961C11.8173 2.99961 8.76497 4.264 6.51481 6.51455C4.26426 8.76484 2.99987 11.8172 2.99987 14.9997C2.99987 18.1823 4.26426 21.2348 6.51481 23.4849C8.7651 25.7355 11.8174 26.9999 15 26.9999C18.1826 26.9999 21.235 25.7355 23.4852 23.4849C25.7357 21.2346 27.0001 18.1823 27.0001 14.9997C26.9964 11.8183 25.731 8.76792 23.4812 6.51841C21.2317 4.26863 18.1814 3.00321 14.9999 2.99949L15 2.99961ZM22.5003 15C22.5003 14.6022 22.3421 14.2205 22.0609 13.9393C21.7796 13.658 21.3981 13.5001 21.0001 13.5001H9.00039C8.46451 13.5001 7.9693 13.7858 7.70135 14.2499C7.4334 14.714 7.4334 15.286 7.70135 15.7501C7.9693 16.2142 8.4645 16.4999 9.00039 16.4999H21.0008H21.0005C21.3985 16.4999 21.78 16.342 22.0613 16.0607C22.3425 15.7795 22.5007 15.3978 22.5007 15H22.5003Z"/>
+                <path d="M15 30C11.0217 30 7.20653 28.4197 4.39335 25.6066C1.58029 22.7936 0 18.9781 0 15C0 11.0219 1.58029 7.20653 4.39335 4.39335C7.2064 1.58029 11.0219 0 15 0C18.9781 0 22.7935 1.58029 25.6066 4.39335C28.4197 7.2064 30 11.0219 30 15C29.9955 18.977 28.4137 22.7896 25.6016 25.6015C22.7896 28.4135 18.9769 29.9954 15.0001 29.9999L15 30ZM15 2.99961C11.8173 2.99961 8.76497 4.264 6.51481 6.51455C4.26426 8.76484 2.99987 11.8172 2.99987 14.9997C2.99987 18.1823 4.26426 21.2348 6.51481 23.4849C8.7651 25.7355 11.8174 26.9999 15 26.9999C18.1826 26.9999 21.235 25.7355 23.4852 23.4849C25.7357 21.2346 27.0001 18.1823 27.0001 14.9997C26.9964 11.8183 25.731 8.76792 23.4812 6.51841C21.2317 4.26863 18.1814 3.00321 14.9999 2.99949L15 2.99961ZM22.5003 15C22.5003 14.6022 22.3421 14.2205 22.0609 13.9393C21.7796 13.658 21.3981 13.5001 21.0001 13.5001H9.00039C8.46451 13.5001 7.9693 13.7858 7.70135 14.2499C7.4334 14.714 7.4334 15.286 7.70135 15.7501C7.9693 16.2142 8.4645 16.4999 9.00039 16.4999H21.0008H21.0005C21.3985 16.4999 21.78 16.342 22.0613 16.0607C22.3425 15.7795 22.5007 15.3978 22.5007 15H22.5003Z"/>
             </svg>
         </div>
     </div>
 </div>
 
-<script th:if="${elements}" src="../static/script/script.js"></script>
+<script th:if="${elements}" src="/static/script/script.js"></script>
 </body>
 
 </html>

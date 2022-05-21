@@ -1,4 +1,6 @@
 window.onload = () => {
+  let genresFilter = document.getElementById('filter-genres');
+  let dateFilter = document.getElementById('filter-date');
   let main = document.getElementById('main');
   let nav = document.getElementById('nav');
   let modal = document.getElementById('modal');
@@ -23,4 +25,11 @@ window.onload = () => {
     main.classList.remove('unfocused');
   })
 
+  genresFilter.addEventListener('click', () => {
+    genresFilter.classList.toggle('closed');
+  });
+
+  dateFilter.addEventListener('click', () => {
+    dateFilter.classList.toggle('closed');
+  });
 }

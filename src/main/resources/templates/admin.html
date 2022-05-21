@@ -28,11 +28,11 @@
           </svg>
         </div>
         <div class="site-name">
-          <a href="/home/1">HORECA</a>
+          <a href="/">HORECA</a>
         </div>
       </div>
       <div class="user-block" data-tooltip="Личный кабинет" data-flow="bottom">
-        <a th:href="@{/userpage/{username}(username=${user.name})}">
+        <a th:href="@{/userpage/{username}/1(username=${user.name})}">
           <div class="user-block">
             <div class="username" title="username">
               <span th:text="${user.name}">username</span>

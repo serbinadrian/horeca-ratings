@@ -107,8 +107,25 @@ body{
   fill: var(--secondary-accent-color);
 }
 
-.page-number a{
+ a.page-number{
   display: block;
   width: 100%;
   height: 100%;
+  text-decoration: none !important;
+  font-size: 18px;
+  color: var(--main-font-color);
 }
+
+.page-number:hover {
+  color: var(--secondary-accent-color);
+}
+
+.page-number.no-click,
+.arrow.no-click{
+  pointer-events: none;
+}
+
+.arrow.no-click path {
+  fill: var(--dark-font-color);
+}
+

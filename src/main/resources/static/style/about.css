@@ -338,12 +338,3 @@ main{
   pointer-events: none;
 }
 
-.page-number.active::after {
-  border-bottom: 4px solid var(--accent-color);
-  content: "";
-  width: 20px;
-  height: 1px;
-  position: absolute;
-  left: 4px;
-  bottom: 0;
-}

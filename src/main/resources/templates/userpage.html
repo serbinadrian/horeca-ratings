@@ -4,11 +4,11 @@
 <head>
   <meta charset="utf-8">
   <title>userpage</title>
-  <link rel="stylesheet" href="../static/style/root.css">
-  <link rel="stylesheet" href="../static/style/reset.css">
-  <link rel="stylesheet" href="../static/style/lk.css">
-  <link rel="stylesheet" href="../static/style/nav.css">
-  <link rel="stylesheet" href="../static/style/tooltip.css">
+  <link rel="stylesheet" href="/static/style/root.css">
+  <link rel="stylesheet" href="/static/style/reset.css">
+  <link rel="stylesheet" href="/static/style/lk.css">
+  <link rel="stylesheet" href="/static/style/nav.css">
+  <link rel="stylesheet" href="/static/style/tooltip.css">
 </head>
 
 <body>
@@ -28,11 +28,11 @@
           </svg>
         </div>
         <div class="site-name">
-          <a href="/home/1">HORECA</a>
+          <a href="/">HORECA</a>
         </div>
       </div>
       <div class="user-block" data-tooltip="Личный кабинет" data-flow="bottom">
-        <a th:href="@{/userpage/{username}(username=${user.name})}">
+        <a th:href="@{/userpage/{username}/1(username=${user.name})}">
           <div class="user-block">
             <div class="username" title="username">
               <span th:text="${user.name}">username</span>
@@ -235,32 +235,68 @@
         </div>
 
       </div>
-      <div class="page-naviagtion-block">
-        <form action="">
-          <div class="page-number-navigation">
-            <div class="arrow previous-page" data-tooltip="Предыдущая страница" data-flow="left">
-              <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M0.292893 7.29289C-0.097631 7.68342 -0.097631 8.31658 0.292893 8.70711L6.65685 15.0711C7.04738 15.4616 7.68054 15.4616 8.07107 15.0711C8.46159 14.6805 8.46159 14.0474 8.07107 13.6569L2.41421 8L8.07107 2.34315C8.46159 1.95262 8.46159 1.31946 8.07107 0.928932C7.68054 0.538408 7.04738 0.538408 6.65685 0.928932L0.292893 7.29289ZM2 7H1L1 9H2L2 7Z"
-                  fill="white" />
+      <div class="pages-navigation-container">
+        <div class="page-number-navigation">
+
+          <div th:each="navlabel, state : ${labels}" class="page-number-cell">
+            <a class="arrow previous-page"
+               th:if="${state.index == 0}"
+               th:href="@{/userpage/{username}/{page}(username=${user.name},page = ${navlabel.label})}"
+               th:classappend="${navlabel.isAccessible} ? 'accessible' : 'no-click'"
+               th:attr="data-tooltip=${navlabel.isAccessible} ? ${'В начало'} : 'Вы на первой странице', data-flow='top'">
+              <svg width="15" height="16" viewBox="0 0 15 16" fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M0.292824 7.29306C-0.0976619 7.68362 -0.0976002 8.31679 0.292962 8.70727L6.65754 15.0706C7.04811 15.4611 7.68127 15.461 8.07176 15.0705C8.46224 14.6799 8.46218 14.0467 8.07162 13.6563L2.41421 7.99996L8.07052 2.34255C8.461 1.95199 8.46094 1.31883 8.07038 0.92834C7.67982 0.537854 7.04665 0.537916 6.65616 0.928478L0.292824 7.29306ZM1.9999 7L0.999903 7.0001L1.0001 9.0001L2.0001 9L1.9999 7Z"
+                      fill="white"/>
+                <path d="M6.29282 7.29306C5.90234 7.68362 5.9024 8.31679 6.29296 8.70727L12.6575 15.0706C13.0481 15.4611 13.6813 15.461 14.0718 15.0705C14.4622 14.6799 14.4622 14.0467 14.0716 13.6563L8.41421 7.99996L14.0705 2.34255C14.461 1.95199 14.4609 1.31883 14.0704 0.92834C13.6798 0.537854 13.0467 0.537916 12.6562 0.928478L6.29282 7.29306ZM7.9999 7L6.9999 7.0001L7.0001 9.0001L8.0001 9L7.9999 7Z"
+                      fill="white"/>
               </svg>
-            </div>
-            <div class="page-numbers">
-              <div class="page-number active">1</div>
-              <div class="page-number">2</div>
-              <div class="page-number">3</div>
-              <div class="page-number no-click">...</div>
-              <div class="page-number">5</div>
-            </div>
-            <div class="arrow next-page" data-tooltip="Следующая страница" data-flow="right">
-              <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            </a>
+            <a class="arrow previous-page"
+               th:if="${state.index == 1}"
+               th:href="@{/userpage/{username}/{page}(username=${user.name},page = ${navlabel.label})}"
+               th:classappend="${navlabel.isAccessible} ? 'accessible' : 'no-click'"
+               th:attr="data-tooltip=${navlabel.isAccessible} ? ${'Страница' + navlabel.label} : 'Вы на первой странице', data-flow='top'">
+              <svg width="9" height="16" viewBox="0 0 9 16" fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
                 <path
-                  d="M8.70711 8.70711C9.09763 8.31658 9.09763 7.68342 8.70711 7.29289L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L6.58579 8L0.928932 13.6569C0.538408 14.0474 0.538408 14.6805 0.928932 15.0711C1.31946 15.4616 1.95262 15.4616 2.34315 15.0711L8.70711 8.70711ZM7 9H8V7H7V9Z"
-                  fill="white" />
+                        d="M0.292893 7.29289C-0.097631 7.68342 -0.097631 8.31658 0.292893 8.70711L6.65685 15.0711C7.04738 15.4616 7.68054 15.4616 8.07107 15.0711C8.46159 14.6805 8.46159 14.0474 8.07107 13.6569L2.41421 8L8.07107 2.34315C8.46159 1.95262 8.46159 1.31946 8.07107 0.928932C7.68054 0.538408 7.04738 0.538408 6.65685 0.928932L0.292893 7.29289ZM2 7H1L1 9H2L2 7Z"
+                        fill="white"/>
               </svg>
-            </div>
+            </a>
+            <a class="page-number active no-click"
+               th:if="${state.index == 2}"
+               th:href="@{/userpage/{username}/{page}(username=${user.name},page = ${navlabel.label})}"
+               th:attr="data-tooltip=${'Страница' + (navlabel.label)}, data-flow='bottom'">
+              <span th:text="${navlabel.label}"></span>
+            </a>
+            <a class="arrow next-page"
+               th:if="${state.index == state.size - 2}"
+               th:href="@{/userpage/{username}/{page}(username=${user.name},page = ${navlabel.label})}"
+               th:classappend="${navlabel.isAccessible} ? 'accessible' : 'no-click'"
+               th:attr="data-tooltip=${navlabel.isAccessible} ? ${'Страница' + navlabel.label} : 'Вы на последней странице', data-flow='top'">
+              <svg width="9" height="16" viewBox="0 0 9 16" fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path
+                        d="M8.70711 8.70711C9.09763 8.31658 9.09763 7.68342 8.70711 7.29289L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L6.58579 8L0.928932 13.6569C0.538408 14.0474 0.538408 14.6805 0.928932 15.0711C1.31946 15.4616 1.95262 15.4616 2.34315 15.0711L8.70711 8.70711ZM7 9H8V7H7V9Z"
+                        fill="white"/>
+              </svg>
+            </a>
+            <a class="arrow next-page"
+               th:if="${state.index == state.size - 1}"
+               th:href="@{/userpage/{username}/{page}(username=${user.name},page = ${navlabel.label})}"
+               th:classappend="${navlabel.isAccessible} ? 'accessible' : 'no-click'"
+               th:attr="data-tooltip=${navlabel.isAccessible} ? ${'В конец'} : 'Вы на последней странице', data-flow='top'">
+              <svg width="15" height="16" viewBox="0 0 15 16" fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.7071 8.70711C15.0976 8.31658 15.0976 7.68342 14.7071 7.29289L8.34315 0.928932C7.95262 0.538408 7.31946 0.538408 6.92893 0.928932C6.53841 1.31946 6.53841 1.95262 6.92893 2.34315L12.5858 8L6.92893 13.6569C6.53841 14.0474 6.53841 14.6805 6.92893 15.0711C7.31946 15.4616 7.95262 15.4616 8.34315 15.0711L14.7071 8.70711ZM13 9H14V7H13V9Z"
+                      fill="white"/>
+                <path d="M8.70711 8.70711C9.09763 8.31658 9.09763 7.68342 8.70711 7.29289L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L6.58579 8L0.928932 13.6569C0.538408 14.0474 0.538408 14.6805 0.928932 15.0711C1.31946 15.4616 1.95262 15.4616 2.34315 15.0711L8.70711 8.70711ZM7 9H8V7H7V9Z"
+                      fill="white"/>
+              </svg>
+            </a>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </main>
