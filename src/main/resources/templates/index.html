@@ -38,11 +38,17 @@
                     <div class="username" title="username">
                         <span th:text="${user.name}">username</span>
                     </div>
-                    <div class="user-picture">
-                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                    d="M20 0C8.96984 0 0 8.96984 0 20C0 31.0302 8.96984 40 20 40C31.0302 40 40 31.0302 40 20C40 8.96984 31.0302 0 20 0ZM20 2.66683C29.5889 2.66683 37.3333 10.4114 37.3333 20.0002C37.3333 23.2458 36.4486 26.2809 34.9028 28.8748C31.2411 24.7887 25.9131 22.2221 20.0004 22.2221C14.0806 22.2221 8.75675 24.7943 5.09802 28.8887C3.54857 26.2923 2.66746 23.2494 2.66746 19.9998C2.66746 10.411 10.4121 2.66651 20.0008 2.66651L20 2.66683ZM20 4.00024C15.3522 4.00024 11.5556 7.79675 11.5556 12.4447C11.5556 17.0926 15.3521 20.8891 20 20.8891C24.6479 20.8891 28.4444 17.0926 28.4444 12.4447C28.4444 7.79675 24.6479 4.00024 20 4.00024ZM20 6.66706C23.2068 6.66706 25.7779 9.2381 25.7779 12.4449C25.7779 15.6517 23.2068 18.2228 20 18.2228C16.7932 18.2228 14.2221 15.6517 14.2221 12.4449C14.2221 9.2381 16.7932 6.66706 20 6.66706ZM20 24.8893C25.3519 24.8893 30.1127 27.3202 33.2921 31.1253C30.115 34.9197 25.3484 37.3338 20 37.3338C14.6516 37.3338 9.88492 34.92 6.70794 31.1253C9.885 27.3161 14.6444 24.8893 20 24.8893Z"
-                                    fill="white"/>
+                    <div class="user-picture"
+                         th:if="${user.fullName != 'Admin'}"
+                         th:style="'background-color:'+${userAvatar.appliedSecondaryUserColor} +'; border-color: ' + ${userAvatar.appliedUserColor} +'; color: ' +${userAvatar.appliedUserColor}">
+                        <span th:text="${userAvatar.initials}"></span>
+                    </div>
+                    <div class="user-picture admin"
+                         th:unless="${user.fullName != 'Admin'}"
+                         th:style=" 'background-color:'+${userAvatar.appliedSecondaryUserColor} +'; border-color: ' + ${userAvatar.appliedUserColor}">
+                        <svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.7753 6.97186L10.9999 0L7.22448 6.97186L0 1.68529L2.98737 12.0603H19.0126L22 1.68529L14.7753 6.97186ZM2.98697 15.3H19.0122V13.3748H2.98697V15.3Z"
+                                  th:attr="fill=${userAvatar.appliedUserColor}"></path>
                         </svg>
                     </div>
                 </div>
@@ -70,7 +76,7 @@
 <main id="main">
     <div class="content">
         <div class="filters-block">
-            <form th:action="@{/home/{page}/filtered(page = ${labels[2].label})}">
+            <form action="/home/1">
                 <div class="search-block">
                     <input th:if="${defaultSearch}" type="search" placeholder="Поиск" name="search">
                     <input th:unless="${defaultSearch}" type="search" placeholder="Поиск" name="search" th:value="${search}">
@@ -86,7 +92,7 @@
                     </div>
                 </div>
                 <div>
-                    <div class="radio-block closed" id="filter-date">
+                    <div class="radio-block" id="filter-date">
                         <div class="radio-block-title">
                             <div class="radio-block-switch">
                                 <svg width="24" height="14" viewBox="0 0 24 14" fill="none"
@@ -102,24 +108,30 @@
                         </div>
                         <div class="options">
                             <div class="option">
-                                <input class="radiobtn" id="second-btn-1" type="radio" name="sortRateDesc" th:checked="${sort[0] == 1}"/>
+                                <input th:if="${sort[0] == 1}" class="radiobtn" id="second-btn-1" type="radio" name="sort" value="sortRateDesc" checked/>
+                                <input th:unless="${sort[0] == 1}" class="radiobtn" id="second-btn-1" type="radio" name="sort" value="sortRateDesc"/>
                                 <label for="second-btn-1">По убыванию рейтинга</label>
                             </div>
                             <div class="option">
-                                <input class="radiobtn" id="second-btn-2" type="radio" name="sortRateAsc" th:checked="${sort[1] == 1}"/>
+                                <input th:if="${sort[1] == 1}" class="radiobtn" id="second-btn-2" type="radio" name="sort" value="sortRateAsc" checked/>
+                                <input th:unless="${sort[1] == 1}" class="radiobtn" id="second-btn-2" type="radio" name="sort" value="sortRateAsc"/>
                                 <label for="second-btn-2">По возрастанию рейтинга</label>
                             </div>
+                            <!--
                             <div class="option">
-                                <input class="radiobtn" id="second-btn-3" type="radio" name="sortAlphabetDesc" th:checked="${sort[2] == 1}"/>
+                                <input th:if="${sort[2] == 1}" class="radiobtn" id="second-btn-3" type="radio" name="sort" value="sortAlphabetDesc" checked/>
+                                <input th:unless="${sort[2] == 1}" class="radiobtn" id="second-btn-3" type="radio" name="sort" value="sortAlphabetDesc"/>
                                 <label for="second-btn-3">По алафиту</label>
                             </div>
                             <div class="option">
-                                <input class="radiobtn" id="second-btn-4" type="radio" name="sortAlphabetAsc" th:checked="${sort[3] == 1}"/>
+                                <input th:if="${sort[3] == 1}"class="radiobtn" id="second-btn-4" type="radio" name="sort" value="sortAlphabetAsc" checked/>
+                                <input th:unless="${sort[3] == 1}"class="radiobtn" id="second-btn-4" type="radio" name="sort" value="sortAlphabetAsc"/>
                                 <label for="second-btn-4">Против алафита</label>
                             </div>
+                            -->
                         </div>
                     </div>
-                    <div class="radio-block closed" id="filter-genres">
+                    <div class="radio-block" id="filter-genres">
                         <div class="radio-block-title">
                             <div class="radio-block-switch">
                                 <svg width="24" height="14" viewBox="0 0 24 14" fill="none"
@@ -135,18 +147,18 @@
                         </div>
                         <div class="options">
                             <div class="option">
-                                <input class="radiobtn" id="first-btn-1" type="checkbox" name="filter"
-                                       th:checked="${filters[0] == 1}"/>
+                                <input th:if="${filters[0] == 1}" class="radiobtn" id="first-btn-1" type="checkbox" name="filter" value="isInst" checked/>
+                                <input th:unless="${filters[0] == 1}" class="radiobtn" id="first-btn-1" type="checkbox" name="filter" value="isInst"/>
                                 <label for="first-btn-1">Есть instagram</label>
                             </div>
                             <div class="option">
-                                <input class="radiobtn" id="first-btn-2" type="checkbox" name="filter"
-                                       th:checked="${filters[1] == 1}"/>
+                                <input th:if="${filters[1] == 1}" class="radiobtn" id="first-btn-2" type="checkbox" name="filter" value="isFb" checked/>
+                                <input th:unless="${filters[1] == 1}" class="radiobtn" id="first-btn-2" type="checkbox" name="filter" value="isFb"/>
                                 <label for="first-btn-2">Есть facebook</label>
                             </div>
                             <div class="option">
-                                <input class="radiobtn" id="first-btn-3" type="checkbox" name="filter"
-                                       th:checked="${filters[2] == 1}"/>
+                                <input th:if="${filters[2] == 1}" class="radiobtn" id="first-btn-3" type="checkbox" name="filter" value="isVk" checked/>
+                                <input th:unless="${filters[2] == 1}" class="radiobtn" id="first-btn-3" type="checkbox" name="filter" value="isVk"/>
                                 <label for="first-btn-3">Есть вконтакте</label>
                             </div>
                         </div>
@@ -158,9 +170,9 @@
             </form>
         </div>
         <div class="main-block">
-            <div class="orgaizations-container">
+            <div th:if="${elements}" class="orgaizations-container">
                 <!--single-company-->
-                <div class="company-info" th:each="organization : ${elements}">
+                <div class="company-info" th:each="organization : ${elements}" >
                     <div class="company-name-block">
                         <div class="company-name">
                             <span th:text="${organization.name}"></span>
@@ -169,7 +181,7 @@
                             <div class="social-media">
                                 <div th:if="${organization.instLink != ''}" class="instagram social-link"
                                      th:attr="data-tooltip=${organization.instLink}" data-flow="bottom">
-                                    <a th:href="@{https://{socialLink}(socialLink = ${organization.instLink})}">
+                                    <a th:href="@{https://{socialLink}(socialLink = ${organization.instLink})}" target="_blank">
                                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
                                              xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -199,7 +211,7 @@
                                 </div>
                                 <div th:if="${organization.vkLink != ''}" class="vkontakte social-link"
                                      th:attr="data-tooltip=${organization.vkLink}" data-flow="bottom">
-                                    <a th:href="@{https://{socialLink}(socialLink = ${organization.vkLink})}">
+                                    <a th:href="@{https://{socialLink}(socialLink = ${organization.vkLink})}" target="_blank">
                                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
                                              xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -219,7 +231,7 @@
                                 </div>
                                 <div th:if="${organization.fbLink != ''}" class="facebook social-link"
                                      th:attr="data-tooltip=${organization.fbLink}" data-flow="bottom">
-                                    <a th:href="@{https://{socialLink}(socialLink = ${organization.fbLink})}">
+                                    <a th:href="@{https://{socialLink}(socialLink = ${organization.fbLink})}" target="_blank">
                                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
                                              xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -308,7 +320,7 @@
                     </div>
                 </div>
             </div>
-            <div class="pages-navigation-container">
+            <div th:if="${labels}" class="pages-navigation-container">
                 <div class="page-number-navigation">
 
                     <div th:each="navlabel, state : ${labels}" class="page-number-cell">
@@ -389,7 +401,7 @@
     </div>
 </div>
 
-<script th:if="${elements}" src="/static/script/script.js"></script>
+<script src="/static/script/script.js"></script>
 </body>
 
 </html>

@@ -37,11 +37,17 @@
             <div class="username" title="username">
               <span th:text="${user.name}">username</span>
             </div>
-            <div class="user-picture">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M20 0C8.96984 0 0 8.96984 0 20C0 31.0302 8.96984 40 20 40C31.0302 40 40 31.0302 40 20C40 8.96984 31.0302 0 20 0ZM20 2.66683C29.5889 2.66683 37.3333 10.4114 37.3333 20.0002C37.3333 23.2458 36.4486 26.2809 34.9028 28.8748C31.2411 24.7887 25.9131 22.2221 20.0004 22.2221C14.0806 22.2221 8.75675 24.7943 5.09802 28.8887C3.54857 26.2923 2.66746 23.2494 2.66746 19.9998C2.66746 10.411 10.4121 2.66651 20.0008 2.66651L20 2.66683ZM20 4.00024C15.3522 4.00024 11.5556 7.79675 11.5556 12.4447C11.5556 17.0926 15.3521 20.8891 20 20.8891C24.6479 20.8891 28.4444 17.0926 28.4444 12.4447C28.4444 7.79675 24.6479 4.00024 20 4.00024ZM20 6.66706C23.2068 6.66706 25.7779 9.2381 25.7779 12.4449C25.7779 15.6517 23.2068 18.2228 20 18.2228C16.7932 18.2228 14.2221 15.6517 14.2221 12.4449C14.2221 9.2381 16.7932 6.66706 20 6.66706ZM20 24.8893C25.3519 24.8893 30.1127 27.3202 33.2921 31.1253C30.115 34.9197 25.3484 37.3338 20 37.3338C14.6516 37.3338 9.88492 34.92 6.70794 31.1253C9.885 27.3161 14.6444 24.8893 20 24.8893Z"
-                  fill="white" />
+            <div class="user-picture"
+                 th:if="${user.fullName != 'Admin'}"
+                 th:style="'background-color:'+${userAvatar.appliedSecondaryUserColor} +'; border-color: ' + ${userAvatar.appliedUserColor} +'; color: ' +${userAvatar.appliedUserColor}">
+              <span th:text="${userAvatar.initials}"></span>
+            </div>
+            <div class="user-picture admin"
+                 th:unless="${user.fullName != 'Admin'}"
+                 th:style=" 'background-color:'+${userAvatar.appliedSecondaryUserColor} +'; border-color: ' + ${userAvatar.appliedUserColor}">
+              <svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.7753 6.97186L10.9999 0L7.22448 6.97186L0 1.68529L2.98737 12.0603H19.0126L22 1.68529L14.7753 6.97186ZM2.98697 15.3H19.0122V13.3748H2.98697V15.3Z"
+                      th:attr="fill=${userAvatar.appliedUserColor}"></path>
               </svg>
             </div>
           </div>
@@ -88,7 +94,7 @@
       <div class="page-content-title">
         Оставленные Вами комментарии:
       </div>
-      <div class="own-comments-wrapper">
+      <div th:if="${comments}" class="own-comments-wrapper">
         <div class="own-comment" th:each="ownComment : ${comments}">
           <div class="own-comment-body">
             <div class="own-comment-name-company">
@@ -197,8 +203,8 @@
                     </div>
                   </div>
                   <div class="own-comment-text">
-
-                    <span th:text="${ownComment.comment}"></span>
+                    <span th:if="${ownComment.comment  != ''}" th:text="${ownComment.comment}"></span>
+                    <h5 th:unless="${ownComment.comment  != ''}" style="color: gray">Без комментария</h5>
                   </div>
                   <!--<a href="">Дополнить</a>-->
                 </div>
@@ -235,7 +241,7 @@
         </div>
 
       </div>
-      <div class="pages-navigation-container">
+      <div th:if="${labels}" class="pages-navigation-container">
         <div class="page-number-navigation">
 
           <div th:each="navlabel, state : ${labels}" class="page-number-cell">

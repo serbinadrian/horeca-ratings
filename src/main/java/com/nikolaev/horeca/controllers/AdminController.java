@@ -46,25 +46,15 @@ public class AdminController {
             for (ErrorMessage errorMessage: errorList) {
                 model.addAttribute(errorMessage.getType().getTemplateValue(), errorMessage.getMessage());
             }
+        }else {
+            adminService.wipeData();
         }
-        adminService.wipeData();
         //todo  user
         user = userRepository.getByName("admin");
 
-        //todo fix
-        model.addAttribute("user", user);
-        model.addAttribute("isSignedIn", true);
-        model.addAttribute("userAvatar", userAvatar);
-        UserAvatar userAvatar = userAvatarsRepository.getByUserId(user.getId());
-        List<UserRating> rating = userRatingRepository.findAllByUserId(user.getId());
-        int ratingListSize = rating.size();
-        model.addAttribute("rating", rating);
-        model.addAttribute("ratingListSize", ratingListSize);
-        model.addAttribute("userAvatar", userAvatar);
-
+        addAdminUserFieldsToModel(model);
         return "admin";
     }
-
 
     @PostMapping("/admin/addOrganization")
     public String addFakeComposition(@RequestParam(value = "organizationName")String name,
@@ -99,20 +89,11 @@ public class AdminController {
                 error.print();
             }
         }
-        //todo fix
-        model.addAttribute("user", user);
-        model.addAttribute("isSignedIn", true);
-        model.addAttribute("userAvatar", userAvatar);
-        UserAvatar userAvatar = userAvatarsRepository.getByUserId(user.getId());
-        List<UserRating> rating = userRatingRepository.findAllByUserId(user.getId());
-        int ratingListSize = rating.size();
-        model.addAttribute("rating", rating);
-        model.addAttribute("ratingListSize", ratingListSize);
-        model.addAttribute("userAvatar", userAvatar);
+        addAdminUserFieldsToModel(model);
         return "admin";
     }
 
-    @PostMapping("/admin/addUSer")
+    @PostMapping("/admin/addUser")
     public String addUser(@RequestParam(value = "userName")String name,
                           @RequestParam(value = "userEmail")String email,
                           @RequestParam(value = "userPassword")String password,
@@ -137,15 +118,7 @@ public class AdminController {
             userAvatarsRepository.save(userAvatar1);
         }
 
-        model.addAttribute("user", user);
-        model.addAttribute("isSignedIn", true);
-        model.addAttribute("userAvatar", userAvatar);
-        UserAvatar userAvatar = userAvatarsRepository.getByUserId(user.getId());
-        List<UserRating> rating = userRatingRepository.findAllByUserId(user.getId());
-        int ratingListSize = rating.size();
-        model.addAttribute("rating", rating);
-        model.addAttribute("ratingListSize", ratingListSize);
-        model.addAttribute("userAvatar", userAvatar);
+        addAdminUserFieldsToModel(model);
         return "admin";
     }
 
@@ -163,17 +136,22 @@ public class AdminController {
             }
         }
 
-        //todo fix
+        addAdminUserFieldsToModel(model);
+        return "admin";
+    }
+    private void addAdminUserFieldsToModel(Model model) {
         model.addAttribute("user", user);
         model.addAttribute("isSignedIn", true);
         model.addAttribute("userAvatar", userAvatar);
         UserAvatar userAvatar = userAvatarsRepository.getByUserId(user.getId());
-        List<UserRating> rating = userRatingRepository.findAllByUserId(user.getId());
+        List<UserRating> rating = userRatingRepository.findAllByUserIdOrderByDateDesc(user.getId());
         int ratingListSize = rating.size();
         model.addAttribute("rating", rating);
         model.addAttribute("ratingListSize", ratingListSize);
         model.addAttribute("userAvatar", userAvatar);
-        return "admin";
+        model.addAttribute("organizationsCount", organizationRepository.count());
+        model.addAttribute("usersCount", userRepository.count());
+        model.addAttribute("ratingsCount", userRatingRepository.count());
     }
 }
 

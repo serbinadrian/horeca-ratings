@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -246,6 +247,7 @@ public class AdminService {
         rating.setOrganizationId(organizationId);
         rating.setPersonnelRate(userRating.getPersonnelRate());
         rating.setTasteRate(userRating.getTasteRate());
+        rating.setDate(new Date());
         rating.setLocationRate(userRating.getLocationRate());
         rating.setCleanRate(userRating.getCleanRate());
         rating.setMoodRate(userRating.getMoodRate());
@@ -287,7 +289,7 @@ public class AdminService {
         UserAvatarColorsDataset colors = new UserAvatarColorsDataset();
         User admin = new User();
         admin.setName("admin");
-        admin.setFullName("Administrator User");
+        admin.setFullName("Admin");
         admin.setEmail("admin@horeca.localhost");
         admin.setPassword("admin");
         admin.setRole(Role.ADMIN);

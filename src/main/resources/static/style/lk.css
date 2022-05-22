@@ -7,15 +7,66 @@ main .content{
   flex-direction: column;
 }
 
+.user-image.admin svg{
+  width: 30px;
+}
+
+.admin-buttons{
+  display: flex;
+  flex-wrap: nowrap;
+  color: white;
+  text-align: center;
+}
+
+.admin-button{
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 300px;
+  padding: 20px;
+  margin: 10px;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+
+.value-text{
+  font-size: 30px;
+}
+
+.input-holder{
+  width: 100%;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.admin-button input{
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  color: white;
+  padding-left: 15px;
+  border-radius: 4px;
+  background: var(--comment-background-color);
+}
+
+.admin-button input:focus{
+  outline: 1px solid var(--secondary-accent-color);
+}
+
 .admin-button button{
   width: 120px;
   height: 40px;
   font-size: 22px;
-  background: #F7542E;
+  background: var(--comment-background-color);
   color: white;
   border-radius: 4px;
   border: none;
   outline: none;
+  display: block;
+  margin: 0 auto;
+}
+
+.admin-button button:hover{
+  background: var(--secondary-accent-color);
 }
 
 .page-title {
@@ -94,7 +145,8 @@ main .content{
   flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 30px;
-  max-height: 50vh;
+  min-height: 55vh;
+  max-height: 60vh;
 }
 
 /*rating metrics*/
@@ -123,6 +175,10 @@ main .content{
   height: 100%;
 }
 
+.metric-icon path{
+  fill: white;
+}
+
 .metric-icon
 {
   margin-bottom: 7px;
@@ -137,8 +193,8 @@ main .content{
 /*rating metrics*/
 
 .own-comment {
-  width: 450px;
-  height: 170px;
+  width: 350px;
+  height: 180px;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -151,15 +207,14 @@ main .content{
 
 .own-comment:hover{
   transition: .7s;
-  height: 210px;
+  height: 250px;
   width: 500px;
+  overflow: hidden;
 }
 
 .own-comment-body:hover .own-comment-text{
   display: block !important;
-  overflow: auto;
-  height: 110px;
-  max-height: 110px;
+  //overflow: auto;
   transition: .3s ease-in;
 }
 
@@ -186,7 +241,7 @@ main .content{
 }
 
 .own-comment-content-body{
-  max-height: 130px;
+  //max-height: 130px;
   overflow: auto;
 }
 .own-comment-info{

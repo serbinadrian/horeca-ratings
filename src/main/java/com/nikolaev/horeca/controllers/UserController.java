@@ -13,15 +13,13 @@ import com.nikolaev.horeca.services.AuthenticationService;
 import com.nikolaev.horeca.services.PageService;
 import com.nikolaev.horeca.services.SearchAndFilterService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -51,6 +49,7 @@ public class UserController {
     boolean isSignedIn = false;
     final int organizatinsPerPage = 5;
     final int commentsPerPage = 6;
+    final int userCommentsPerPage = 8;
 
 
     @GetMapping("/")
@@ -58,68 +57,44 @@ public class UserController {
         return "redirect:/home/1";
     }
 
-//    @GetMapping("/home/{page}")
-//    public String getHome(@PathVariable(value = "page")int page, Model model) {
-//        if (isSignedIn) {
-//            model.addAttribute("user", user);
-//        }
-//        boolean isAdmin = userRepository.existsByName("admin");
-//        if(!isAdmin){
-//            adminService.createAdmin();
-//        }
-//
-//        List<Organization> organizations = organizationRepository.findAll(Sort.by(Sort.Direction.DESC, "rating"));
-//
-//        for (Organization organization  : organizations){
-//            organization.setStarsMarkup();
-//        }
-//
-//        organizationPageService.construct(organizations, organizatinsPerPage);
-//
-//        Page<Organization> currentPage = organizationPageService.getPage(page);
-//
-//        model.addAttribute("isSignedIn", isSignedIn);
-//        model.addAttribute("elements", currentPage.getElements());
-//        model.addAttribute("labels", currentPage.getLabels());
-//
-//
-//        return "index";
-//    }
-
     @GetMapping("/home/{page}")
     public String getHomeFiltered(@PathVariable(value = "page")int page,
                                   @RequestParam(value = "search", required = false)String search,
                                   @RequestParam(value = "sort", required = false)String sort,
-                                  @RequestParam(value = "filter", required = false) List<String> filter,
+                                  @RequestParam(value = "filter", required = false) String[] filter,
                                   Model model) {
-
-
         if (isSignedIn) {
             model.addAttribute("user", user);
+            user = userRepository.getByName(user.getName());//update admin id if refill DB
         }
         boolean isAdmin = userRepository.existsByName("admin");
         if(!isAdmin){
             adminService.createAdmin();
         }
 
-        searchAndFilterService.insertParams(search, sort, filter);
-        searchAndFilterService.build();
+        if(!searchAndFilterService.isSet() || page == 1 && searchAndFilterService.isChanged(search, sort, filter)){
+            searchAndFilterService.insertParams(search, sort, filter);
+            searchAndFilterService.build();
+        }
 
         List<Organization> organizations = searchAndFilterService.getData();
-
         for (Organization organization  : organizations){
             organization.setStarsMarkup();
         }
-
         organizationPageService.construct(organizations, organizatinsPerPage);
         Page<Organization> currentPage = organizationPageService.getPage(page);
-
         model.addAttribute("isSignedIn", isSignedIn);
-        model.addAttribute("elements", currentPage.getElements());
-        model.addAttribute("labels", currentPage.getLabels());
+
+        if(!currentPage.isSingle()) {
+            model.addAttribute("labels", currentPage.getLabels());
+        }
+        if(!currentPage.isNull()) {
+            model.addAttribute("elements", currentPage.getElements());
+        }
         model.addAttribute("search", search);
         model.addAttribute("sort", searchAndFilterService.getSort());
         model.addAttribute("filters", searchAndFilterService.getFilters());
+        model.addAttribute("userAvatar", userAvatarsRepository.getByUserId(user.getId()));
 
         return "index";
     }
@@ -143,8 +118,13 @@ public class UserController {
         userCommentDTOsPageService.construct(commentDtos, commentsPerPage);
         Page<UserCommentDTO> currentPage = userCommentDTOsPageService.getPage(page);
 
-        model.addAttribute("comments", currentPage.getElements());
-        model.addAttribute("labels", currentPage.getLabels());
+
+        if(!currentPage.isSingle()) {
+            model.addAttribute("labels", currentPage.getLabels());
+        }
+        if(!currentPage.isNull()) {
+            model.addAttribute("comments", currentPage.getElements());
+        }
         model.addAttribute("organization", organization);
         return "about";
     }
@@ -177,11 +157,11 @@ public class UserController {
                              @RequestParam(value = "clean")Integer cleanRate,
                              @RequestParam(value = "comment")String comment,
                              Model model){
-        User user1 = userRepository.getById(userId);
+        user = userRepository.getByName(user.getName());//update admin id if refill DB
 
         Organization organization = organizationRepository.getById(organizationId);
         UserRating userRating = new UserRating();
-        userRating.setUserId(userId);
+        userRating.setUserId(user.getId());
         userRating.setOrganizationId(organizationId);
         userRating.setPersonnelRate(personnelRate);
         userRating.setMoodRate(moodRate);
@@ -191,6 +171,7 @@ public class UserController {
         userRating.setFoodToPriceRate(foodToPriceRate);
         userRating.setCleanRate(cleanRate);
         userRating.setComment(comment);
+        userRating.setDate(new Date());
 
         userRatingRepository.save(userRating);
 
@@ -209,7 +190,16 @@ public class UserController {
             UserCommentDTO userCommentDTO = new UserCommentDTO(userRepository.getById(rating.getUserId()),userAvatarsRepository.getByUserId(rating.getUserId()), rating);
             commentDtos.add(userCommentDTO);
         }
-        model.addAttribute("comments", commentDtos);
+
+        userCommentDTOsPageService.construct(commentDtos, commentsPerPage);
+        Page<UserCommentDTO> currentPage = userCommentDTOsPageService.getPage(1);
+
+        if(!currentPage.isSingle()) {
+            model.addAttribute("labels", currentPage.getLabels());
+        }
+        if(!currentPage.isNull()) {
+            model.addAttribute("comments", currentPage.getElements());
+        }
         model.addAttribute("organization", organization);
         //toService
         return "about";
@@ -222,28 +212,101 @@ public class UserController {
         Organization organization = organizationRepository.getById(orgId);
         adminService.calculateRatingOfOrganization(organization.getName());
         adminService.calculateStarRatingOfOrganization(organization.getName());
-        return "redirect:" + "/userpage/"+ user.getName();
+        return "redirect:" + "/userpage/"+ user.getName() + "/1";
     }
 
+    @GetMapping("/rate/{id}/editRateCompany/{companyId}")
+    public String editRateCompany(@PathVariable(value = "companyId") long companyId,
+                                  @PathVariable(value = "id") long rateId,
+                              Model model){
+        UserRating userRating = userRatingRepository.getById(rateId);
+        Organization organization = organizationRepository.getById(companyId);
+        organization.setStarsMarkup();
+        if (isSignedIn) {
+            model.addAttribute("user", user);
+        }
+        model.addAttribute("isSignedIn", isSignedIn);
+        model.addAttribute("organization", organization);
+        model.addAttribute("rating", userRating);
+        return "rate";
+    }
+    @PostMapping("/editRate/{id}/{rateid}")
+    public String editUserComment(@RequestParam(value = "userId")Long rateId,
+                                  @RequestParam(value = "organizationId")Long organizationId,
+                                  @RequestParam(value = "personnel")Integer personnelRate,
+                                  @RequestParam(value = "mood")Integer moodRate,
+                                  @RequestParam(value = "taste")Integer tasteRate,
+                                  @RequestParam(value = "serviceToPrice")Integer serviceToPriceRate,
+                                  @RequestParam(value = "location")Integer locationRate,
+                                  @RequestParam(value = "foodToPrice")Integer foodToPriceRate,
+                                  @RequestParam(value = "clean")Integer cleanRate,
+                                  @RequestParam(value = "comment")String comment,
+                                  Model model){
+        UserRating userRating = userRatingRepository.getById(rateId);
+        Organization organization = organizationRepository.getById(organizationId);
+        userRating.setOrganizationId(organizationId);
+        userRating.setPersonnelRate(personnelRate);
+        userRating.setMoodRate(moodRate);
+        userRating.setTasteRate(tasteRate);
+        userRating.setDate(new Date());
+        userRating.setServiceToPriceRate(serviceToPriceRate);
+        userRating.setLocationRate(locationRate);
+        userRating.setFoodToPriceRate(foodToPriceRate);
+        userRating.setCleanRate(cleanRate);
+        userRating.setComment(comment);
+
+        userRatingRepository.save(userRating);
+        adminService.calculateRatingOfOrganization(organization.getName());
+        adminService.calculateStarRatingOfOrganization(organization.getName());
+
+        organization = organizationRepository.getById(organizationId);
+        //todo toService
+        organization.setStarsMarkup();
+
+        List<UserCommentDTO> commentDtos = new ArrayList<>();
+
+        List<UserRating> ratings = userRatingRepository.findAllByOrganizationId(organization.getId());
+
+        for (UserRating rating:ratings) {
+            UserCommentDTO userCommentDTO = new UserCommentDTO(userRepository.getById(rating.getUserId()),userAvatarsRepository.getByUserId(rating.getUserId()), rating);
+            commentDtos.add(userCommentDTO);
+        }
+
+        userCommentDTOsPageService.construct(commentDtos, commentsPerPage);
+        Page<UserCommentDTO> currentPage = userCommentDTOsPageService.getPage(1);
+
+        if(!currentPage.isSingle()) {
+            model.addAttribute("labels", currentPage.getLabels());
+        }
+        if(!currentPage.isNull()) {
+            model.addAttribute("comments", currentPage.getElements());
+        }
+        model.addAttribute("organization", organization);
+        //toService
+        return "about";
+    }
     @GetMapping("/userpage/{username}/{page}")
     public String getUserPage(Model model, @PathVariable (value = "username") String username, @PathVariable (value = "page") int page){
         if (isSignedIn && username.equals(user.getName())) {
             if(username.equals("admin")){
                 user = userRepository.getByName("admin");
             }
-            List<UserRating> userRatingList = userRatingRepository.findAllByUserId(user.getId());
+            List<UserRating> userRatingList = userRatingRepository.findAllByUserIdOrderByDateDesc(user.getId());
             List<UserCommentDTO> userComments = new ArrayList<>();
             for (UserRating rating : userRatingList){
                 Organization organization = organizationRepository.getById(rating.getOrganizationId());
                 UserCommentDTO userCommentDTO = new UserCommentDTO(organization, rating);
                 userComments.add(userCommentDTO);
             }
-            ownUserCommentDTOsPageService.construct(userComments, commentsPerPage);
+            ownUserCommentDTOsPageService.construct(userComments, userCommentsPerPage);
             Page<UserCommentDTO> ownCommentsPage = ownUserCommentDTOsPageService.getPage(page);
-            UserAvatar userAvatar = userAvatarsRepository.getByUserId(user.getId());
-            model.addAttribute("userAvatar", userAvatar);
-            model.addAttribute("comments", ownCommentsPage.getElements());
-            model.addAttribute("labels", ownCommentsPage.getLabels());
+            model.addAttribute("userAvatar", userAvatarsRepository.getByUserId(user.getId()));
+            if(!ownCommentsPage.isSingle()) {
+                model.addAttribute("labels", ownCommentsPage.getLabels());
+            }
+            if(!ownCommentsPage.isNull()) {
+                model.addAttribute("comments", ownCommentsPage.getElements());
+            }
             model.addAttribute("user", user);
             model.addAttribute("isSignedIn", isSignedIn);
         }
@@ -251,6 +314,9 @@ public class UserController {
             return "redirect:/signin";
         }
         if(username.equals("admin")){
+            model.addAttribute("organizationsCount", organizationRepository.count());
+            model.addAttribute("usersCount", userRepository.count());
+            model.addAttribute("ratingsCount", userRatingRepository.count());
             return "admin";
         }
         return "userpage";

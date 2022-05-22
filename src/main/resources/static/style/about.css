@@ -1,6 +1,9 @@
 main{
   //background: var(--secondary-color);
 }
+.user-image.admin svg{
+  width: 15px;
+}
 
 .about-header{
   width: 100%;
@@ -160,7 +163,6 @@ main{
 }
 
 .comments-wrapper{
-  overflow: auto;
   height: 430px;
   width: 100%;
   box-sizing: border-box;

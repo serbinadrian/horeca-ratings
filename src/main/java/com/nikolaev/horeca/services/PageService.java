@@ -21,20 +21,30 @@ public class PageService<T> {
     public void construct(List<T> data, int pageSize) {
         this.data = data;
         this.pageSize = pageSize;
-        this.size = data.size();
-        this.labels = new ArrayList<>();
-        constructPages();
+        if(!data.isEmpty()) {
+            this.size = data.size();
+            this.labels = new ArrayList<>();
+            constructPages();
+        }else{
+            this.pagesCount = 0;
+        }
     }
 
     public Page<T> getPage(int pageIndex){
-        if(pageIndex > this.pagesCount || pageIndex == 0){
-            return new Page<>();
-        }
-        calculateLabels(pageIndex);
         Page<T> page = new Page<>();
-        page.setElements(this.pages.get(this.currentPageIndex - 1));
-        page.setLabels(this.labels);
-        System.out.println("sent page: " + pageIndex);
+        if (this.data.size() <= this.pageSize) {
+            page.setSingle(true);
+        }
+        if (this.data.isEmpty()) {
+            page.setNull(true);
+        }
+        if(pageIndex > this.pagesCount || pageIndex == 0){
+            return page;
+        }else{
+            calculateLabels(pageIndex);
+            page.setElements(this.pages.get(this.currentPageIndex - 1));
+            page.setLabels(this.labels);
+        }
         return page;
     }
 

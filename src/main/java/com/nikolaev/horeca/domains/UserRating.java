@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -26,6 +27,8 @@ public class UserRating {
     private String comment = "";
     private final int rateCount = 7;
 
+    private Date date;
+
     public double getProcessedRating(){
 
         double body = this.personnelRate + this.tasteRate + this.locationRate + this.cleanRate + this.moodRate + this.serviceToPriceRate + this.foodToPriceRate;
@@ -39,6 +42,15 @@ public class UserRating {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public long getId() {
         return id;
     }

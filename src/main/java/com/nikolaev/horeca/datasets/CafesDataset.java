@@ -9,15 +9,15 @@ public class CafesDataset {
     public List<Organization> organizations = new ArrayList<>();
     public int size = 0;
     public CafesDataset(){
-        addData("Forno Bravo Centrale", "", "", "instagram.com/fornobravocentrale", "Бары; Рестораны; Пиццерии", "Белинского, 11", "fbcentrale@dreamteam.fm", "https://fornobravo.ru");
-        addData("Ezo", "", "", "instagram.com/ezoizakaya", "Бары; Кафе", "Волынский переулок, 8", "ezoizakaya.ru", "https://ezoizakaya.ru");
-        addData("Лендок", "", "facebook.com/lendocrest", "instagram.com/lendoc_rest", "Бары; Рестораны; Банкетные залы", "набережная Крюкова канала, 12", "", "https://lendoc.ru");
-        addData("Pio Nero", "", "", "instagram.com/pio_nero", "Бары; Кафе; Рестораны; Пиццерии", "Пионерская, 5", "pionero.italiano@gmail.com", "https://pio-nero.com");
+        addData("Forno Bravo Centrale", "", "", "instagram.com/fornobravocentrale", "Бары; Рестораны; Пиццерии", "Белинского, 11", "fbcentrale@dreamteam.fm", "fornobravo.ru");
+        addData("Ezo", "", "", "instagram.com/ezoizakaya", "Бары; Кафе", "Волынский переулок, 8", "ezoizakaya.ru", "ezoizakaya.ru");
+        addData("Лендок", "", "facebook.com/lendocrest", "instagram.com/lendoc_rest", "Бары; Рестораны; Банкетные залы", "набережная Крюкова канала, 12", "", "lendoc.ru");
+        addData("Pio Nero", "", "", "instagram.com/pio_nero", "Бары; Кафе; Рестораны; Пиццерии", "Пионерская, 5", "pionero.italiano@gmail.com", "pio-nero.com");
         addData("Лео", "", "", "instagram.com/leo_shaverma_bar", "Бары; Кафе; Быстрое питание", "Караванная, 24-26", "profud@bk.ru", "");
-        addData("УеБар", "vk.com/yebarru", "", "instagram.com/yebar.ru", "Бары; Рестораны", "Восстания, 12", "", "https://yebar.ru");
-        addData("PINCH!", "vk.com/pinchbar", "facebook.com/pinchwinebar", "instagram.com/pinch_bar", "Бары; Кафе", "Белинского, 5", "9058911@gmail.com", "https://pinch.wtf");
-        addData("Синий Пушкин", "vk.com/club19389632", "", "instagram.com/siniy__pushkin", "Бары; Рестораны", "Жуковского, 3", "strega5555@mail.ru", "https://spushkin.com");
-        addData("ART LAB MEDOVARUS", "vk.com/medovaruslab", "", "instagram.com/art_lab_bar", "Бары; Рестораны", "Мучной переулок, 5", "", "https://artlabbar.ru");
+        addData("УеБар", "vk.com/yebarru", "", "instagram.com/yebar.ru", "Бары; Рестораны", "Восстания, 12", "", "yebar.ru");
+        addData("PINCH!", "vk.com/pinchbar", "facebook.com/pinchwinebar", "instagram.com/pinch_bar", "Бары; Кафе", "Белинского, 5", "9058911@gmail.com", "pinch.wtf");
+        addData("Синий Пушкин", "vk.com/club19389632", "", "instagram.com/siniy__pushkin", "Бары; Рестораны", "Жуковского, 3", "strega5555@mail.ru", "spushkin.com");
+        addData("ART LAB MEDOVARUS", "vk.com/medovaruslab", "", "instagram.com/art_lab_bar", "Бары; Рестораны", "Мучной переулок, 5", "", "artlabbar.ru");
         addData("Radisson Sonya", "vk.com/radissonsonya", "facebook.com/radissonblu", "instagram.com/radissonsonya", "Гостиницы", "Литейный проспект, 5/19", "sonya.sales@radissonblu.com", "radissonhotels.com");
         addData("Villa Perlov", "", "", "instagram.com/villaperlov", "Гостиницы", "Большая Конюшенная, 2", "info@demidovhouse.com", "villaperlov.ru");
         addData("Демидов, гостевой дом", "", "", "instagram.com/house_demidov", "Гостиницы", "Средний проспект В.О., 28/29", "info@demidovhouse.com", "");

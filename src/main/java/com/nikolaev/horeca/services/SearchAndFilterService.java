@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,66 +26,72 @@ public class SearchAndFilterService {
         return data;
     }
 
-    public void insertParams(String search, String sort, List<String> filters) {
-//        if(!Objects.equals(search, "")){
-//            this.search = search;
-//        }else{
-//            this.search = "";
-//        }
-//        if(!Objects.equals(sort, "rateDesc")){
-//            this.sort = search;
-//        }else{
-//            this.sort = "rateDesc";
-//        }
-//        if(filters != null){
-//            this.filters = filters;
-//        }else{
-//            this.filters = new ArrayList<>();
-//        }
-        System.out.println(search);
-        System.out.println(sort);
-        System.out.println(filters);
+    public void insertParams(String search, String sort, String[] filters) {
 
-        this.sort = "rateDesc";
-        this.search = "";
-        this.filters = new ArrayList<>();
+        System.out.println("search query: " + search);
+        System.out.println("sort query: " + sort);
+        System.out.println("filters query: " + Arrays.toString(filters));
+
+        this.search = Objects.requireNonNullElse(search, "");
+        this.sort = Objects.requireNonNullElse(sort, "sortRateDesc");
+        if(filters != null){
+            this.filters = new ArrayList<>(List.of(filters));
+        }
+        else {
+            this.filters = new ArrayList<>();
+        }
 
         this.newParamValue = true;
+    }
+
+    public boolean isChanged(String search, String sort, String[] filters){
+        String currentSearch = Objects.requireNonNullElse(search, "");
+        String currentSort = Objects.requireNonNullElse(sort, "sortRateDesc");
+        List<String> currentFilters = new ArrayList<>();
+        if(filters != null){
+            currentFilters = new ArrayList<>(List.of(filters));
+        }
+
+        return !Objects.equals(this.search, currentSearch) || !Objects.equals(this.sort, currentSort) || this.filters != currentFilters;
     }
 
     public void build() {
 
         this.data = new ArrayList<>();
-        List<Organization> data = new ArrayList<>();
-        switch (this.sort) {
-            case "rateDesc" -> data = organizationRepository.findAll(Sort.by(Sort.Direction.DESC, "rating"));
-            case "rateAsc" -> data = organizationRepository.findAll(Sort.by(Sort.Direction.ASC, "rating"));
-            case "alphabetDesc" -> data = organizationRepository.findAll(Sort.by("name"));
-            case "alphabetAsc" -> data = organizationRepository.findAll(Sort.by(Sort.Direction.DESC, "name"));
-        }
+        List<Organization> data = switch (this.sort) {
+            case "sortRateDesc" -> organizationRepository.findAll(Sort.by(Sort.Direction.DESC, "rating"));
+            case "sortRateAsc" -> organizationRepository.findAll(Sort.by(Sort.Direction.ASC, "rating"));
+            case "sortAlphabetDesc" -> organizationRepository.findAll(Sort.by("name"));
+            case "sortAlphabetAsc" -> organizationRepository.findAll(Sort.by(Sort.Direction.DESC, "name"));
+            default -> new ArrayList<>();
+        };
+
+        System.out.println("found rows: " + data.size());
         int size = this.filters.size();
-        if (size != 0) {
+        if (size != 0 || !this.search.equals("")) {
             List<Integer> filters = getFilters();
             for (Organization organization : data) {
-                boolean passed = true;
-                if (organization.getName().toLowerCase().contains(this.search)) {
-                    if (filters.get(0) == 1) {
-                        passed = !organization.getInstLink().equals("");
-                    }
-                    if (filters.get(1) == 1) {
-                        passed = !organization.getFbLink().equals("");
-                    }
-                    if (filters.get(2) == 1) {
-                        passed = !organization.getVkLink().equals("");
-                    }
+                boolean searchPassed = organization.getName().toLowerCase().contains(this.search.toLowerCase());
+                boolean instPassed = true;
+                boolean fbPassed = true;
+                boolean vkPassed = true;
+                if (filters.get(0) == 1) {
+                    instPassed = !organization.getInstLink().equals("");
                 }
-                if (passed) {
+                if (filters.get(1) == 1) {
+                    fbPassed = !organization.getFbLink().equals("");
+                }
+                if (filters.get(2) == 1) {
+                    vkPassed = !organization.getVkLink().equals("");
+                }
+                if (searchPassed && fbPassed && instPassed && vkPassed) {
                     this.data.add(organization);
                 }
             }
         } else {
             this.data = data;
         }
+        this.isSet = true;
     }
 
 
@@ -98,10 +105,10 @@ public class SearchAndFilterService {
             sort.add(0);
         }
         switch (this.sort) {
-            case "rateDesc" -> sort.set(0, 1);
-            case "rateAsc" -> sort.set(1, 1);
-            case "alphabetDesc" -> sort.set(2, 1);
-            case "alphabetAsc" -> sort.set(3, 1);
+            case "sortRateDesc" -> sort.set(0, 1);
+            case "sortRateAsc" -> sort.set(1, 1);
+            case "sortAlphabetDesc" -> sort.set(2, 1);
+            case "sortAlphabetAsc" -> sort.set(3, 1);
         }
         return sort;
     }

@@ -3,6 +3,7 @@ package com.nikolaev.horeca.datasets;
 import com.nikolaev.horeca.domains.UserRating;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class UserRatingDataset {
@@ -67,6 +68,7 @@ public class UserRatingDataset {
         UserRating rating = new UserRating();
         rating.setPersonnelRate(personnelRate);
         rating.setTasteRate(tasteRate);
+        rating.setDate(new Date());
         rating.setLocationRate(locationRate);
         rating.setCleanRate(cleanRate);
         rating.setMoodRate(moodRate);
